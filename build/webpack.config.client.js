@@ -1,47 +1,24 @@
 const path = require('path')
 const webpack = require('webpack')
 const HTMLPlugin = require('html-webpack-plugin')
+const webpackMerge = require('webpack-merge')
+const baseConfig = require('./webpack.base')
 
 const isDev = process.env.NODE_ENV==='development'
 
-const config = {
+const config = webpackMerge(baseConfig, {
     entry: {
         app: path.join(__dirname,'../client/app.js')
     },
     output: {
-        filename: '[name].[hash].js',
-        path: path.join(__dirname,'../dist'),
-        publicPath: '/public/'     // 生成的url的前缀
-    },
-    module: {
-        rules:[
-            {
-                test: /.(jsx|js)$/,
-                loader: 'eslint-loader',
-                enforce: 'pre',
-                exclude:[
-                    path.join(__dirname,'../node_modules/')
-                ]
-            },
-            {
-                test: /.jsx$/,
-                loader: 'babel-loader'
-            },
-            {
-                test: /.js$/,
-                loader: 'babel-loader',
-                exclude: [
-                    path.join(__dirname,'../node_modules/')
-                ]
-            }
-        ]
+        filename: '[name].[hash].js'
     },
     plugins: [
         new HTMLPlugin({
             template: path.join(__dirname, '../client/template.html')
         })
     ]
-} 
+})
 
 if(isDev) {
     config.entry = {
