@@ -51,6 +51,8 @@
     "express": "^4.16.3",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
     "serve-favicon": "^2.5.0"
   }
 }

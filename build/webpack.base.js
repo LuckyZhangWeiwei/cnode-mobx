@@ -5,6 +5,9 @@ module.exports = {
     path: path.join(__dirname,'../dist'),
     publicPath: '/public/',     // 生成的url的前缀
   },
+  resolve: {
+    extensions: ['.js', '.jsx']   //可以忽略 import  的后缀名  .js  .jsx
+  },
   module: {
     rules:[
         {
