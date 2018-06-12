@@ -1,5 +1,8 @@
 import React from 'react'
+import { observer, inject } from 'mobx-react'
+import PropTypes from 'prop-types'
 
+@inject('appState') @observer
 export default class TopicList extends React.Component {
   componentDidMount() {
     // do
@@ -7,7 +10,11 @@ export default class TopicList extends React.Component {
 
   render() {
     return (
-      <div>this is a topic list</div>
+      <div>{this.props.appState.msg}</div>
     )
   }
+}
+
+TopicList.propTypes = {
+  appState: PropTypes.object,
 }
