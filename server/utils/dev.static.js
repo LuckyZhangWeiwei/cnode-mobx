@@ -3,12 +3,15 @@ const webpack = require('webpack')
 const path = require('path')
 const MemoryFs = require('memory-fs')
 const proxy = require('http-proxy-middleware')
+const serialize = require('serialize-javascript')
+const ejs =require('ejs')
+const bootstrapper = require('react-async-bootstrapper')
 const ReactDomServer = require('react-dom/server')
 const serverConfig = require('../../build/webpack.config.server')
 
 const getTemplate = () => {
   return new Promise((resolve, reject) => {
-      axios.get('http://localhost:8888/public/index.html')
+      axios.get('http://localhost:8888/public/server.ejs')
         .then((res) => {
             resolve(res.data)
         })
@@ -51,6 +54,13 @@ serverComplier.watch({}, (err, stats) => {
     createStoreMap = m.exports.createStoreMap
 })
 
+const getStoreState = (stores) => (
+  Object.keys(stores).reduce((result, storeName) => {
+    result[storeName]=stores[storeName].toJson()
+    return result
+  }, {})
+)
+
 module.exports = (app) => {
    app.use('/public/', proxy({
      target: 'http://localhost:8888'
@@ -61,11 +71,34 @@ module.exports = (app) => {
         .then((template) => {
            const routerContext = {}
 
-           const app = serverBundle(createStoreMap(), routerContext, req.url)
+           const stores = createStoreMap()
 
-           const content = ReactDomServer.renderToString(app)
+           const app = serverBundle(stores, routerContext, req.url)
 
-           res.send(template.replace('<!--app-->',content))
+           bootstrapper(app).then(() => {
+
+            if(routerContext.url) {
+
+              res.status(302).setHeader('Location', routerContext.url)
+
+              res.end()
+
+              return
+
+            }
+
+            const state = getStoreState(stores)
+
+            const content = ReactDomServer.renderToString(app)
+
+            const html = ejs.render(template, {
+              appString: content,
+              initialState: serialize(state),
+            })
+
+            res.send(html)
+
+           })
         })
     })
 
