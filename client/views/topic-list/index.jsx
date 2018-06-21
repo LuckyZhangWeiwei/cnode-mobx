@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
 
 @inject('appState') @observer
 export default class TopicList extends React.Component {
@@ -19,7 +20,13 @@ export default class TopicList extends React.Component {
 
   render() {
     return (
-      <div>{this.props.appState.msg}</div>
+      <div>
+        <Helmet>
+          <title>this is topic list</title>
+          <meta name="description" content="this is description" />
+        </Helmet>
+        {this.props.appState.msg}
+      </div>
     )
   }
 }
