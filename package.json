@@ -12,7 +12,7 @@
     "build": "npm run clear&& npm run build:client && npm run build:server",
     "lint": "eslint --ext .js --ext .jsx client/",
     "precommit": "npm run lint",
-    "start": "node server/server.js"
+    "start": "cross-env NODE_ENV=production node server/server.js"
   },
   "keywords": [],
   "author": "",
