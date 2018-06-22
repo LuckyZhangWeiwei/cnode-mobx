@@ -3,6 +3,10 @@ const ejs =require('ejs')
 const bootstrapper = require('react-async-bootstrapper')
 const ReactDomServer = require('react-dom/server')
 const Helmet = require('react-helmet').default
+const SheetsRegistry = require('react-jss').SheetsRegistry
+const createMuiTheme = require('@material-ui/core/styles').createMuiTheme
+const createGenerateClassName = require('@material-ui/core/styles/createGenerateClassName').default
+const colors = require('@material-ui/core/colors')
 
 const getStoreState = (stores) => (
   Object.keys(stores).reduce((result, storeName) => {
@@ -21,7 +25,20 @@ module.exports = (bundle, template, req, res) => {
 
     const stores = createStoreMap()
 
-    const app = createApp(stores, routerContext, req.url)
+    const theme = createMuiTheme({
+      palette: {
+        primary: colors.lightBlue,
+        accent: colors.purple,
+        type: 'light',
+      },
+    })
+
+    const sheetsRegistry = new SheetsRegistry();
+
+    const generateClassName = createGenerateClassName();
+
+
+    const app = createApp(stores, routerContext, sheetsRegistry, generateClassName, theme, req.url)
 
     bootstrapper(app).then(() => {
 
@@ -47,6 +64,7 @@ module.exports = (bundle, template, req, res) => {
        title: helmet.title.toString(),
        style: helmet.style.toString(),
        link: helmet.link.toString(),
+       materialUICss: sheetsRegistry.toString(),
      })
 
      res.send(html)
