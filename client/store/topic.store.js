@@ -71,20 +71,25 @@ class TopicStore {
     }, {})
   }
 
-  @action fetchTopics(tab) {
+  @action fetchTopics({ tab, page, limit }) {
     return new Promise((resolve, reject) => {
       if (tab === this.tab && this.topics.length > 0) {
         resolve()
       } else {
         this.syncing = true
-        this.topics = []
+        // this.topics = []
         get('/topics', {
           mdrender: false,
           tab,
+          page,
+          limit,
         }).then((resp) => {
           if (resp.success) {
-            this.topics = resp.data.map((topic) => {
-              return new Topic(createTopic(topic))
+            // this.topics = resp.data.map((topic) => {
+            //   return new Topic(createTopic(topic))
+            // })
+            resp.data.forEach((topic) => {
+              this.topics.push(new Topic(createTopic(topic)))
             })
             resolve()
           } else {

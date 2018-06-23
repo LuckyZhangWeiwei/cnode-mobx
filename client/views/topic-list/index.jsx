@@ -26,18 +26,50 @@ export default class TopicList extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      page: 1,
+      limit: 15,
+    }
     this.changeTab = this.changeTab.bind(this)
     this.listItemClick = this.listItemClick.bind(this)
+    this.onScroll = this.onScroll.bind(this)
   }
 
   componentDidMount() {
     const tab = this.getTab()
-    this.props.topicStore.fetchTopics(tab)
+    this.props.topicStore.fetchTopics({ tab, page: this.state.page, limit: this.state.limit })
+    window.addEventListener('scroll', this.onScroll, false)
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.location.search !== this.props.location.search) {
-      this.props.topicStore.fetchTopics(this.getTab(nextProps.location.search))
+      this.props.topicStore.topics = []
+      this.props.topicStore.fetchTopics({
+        tab: this.getTab(nextProps.location.search),
+        page: 1,
+        limit: this.state.limit,
+      })
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll, false)
+  }
+
+  onScroll() {
+    if (
+      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 50)
+      &&
+      !this.props.topicStore.syncing
+      &&
+      this.props.topicStore.topics.length
+    ) {
+      const currentPage = this.state.page
+      this.setState({
+        page: currentPage + 1,
+      })
+      const tab = this.getTab()
+      this.props.topicStore.fetchTopics({ tab, page: this.state.page, limit: this.state.limit })
     }
   }
 
@@ -49,12 +81,13 @@ export default class TopicList extends React.Component {
   bootstrap() {
     const query = queryString.parse(this.props.location.search)
     const { tab } = query
-    return this.props.topicStore.fetchTopics(tab || 'all')
-      .then(() => {
-        return true
-      }).catch(() => {
-        return false
-      })
+    return this.props.topicStore.fetchTopics({
+      tab, page: this.state.page, limit: this.state.limit,
+    }).then(() => {
+      return true
+    }).catch(() => {
+      return false
+    })
   }
 
   changeTab(e, value) {
@@ -121,7 +154,7 @@ export default class TopicList extends React.Component {
           }
         </List>
         {
-          syncingTopics ? (<div style={{ display: 'flex', justifyContent: 'space-around', padding: '40px 0' }}><CircularProgress size={100} /></div>) : null
+          syncingTopics ? (<div style={{ display: 'flex', justifyContent: 'space-around', padding: '40px 0' }}><CircularProgress size={80} /></div>) : null
         }
       </Container>
     )
