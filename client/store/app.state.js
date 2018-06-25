@@ -58,7 +58,6 @@ export default class AppState {
           }
           this.user.detail.syncing = false
         }).catch((err) => {
-          console.log(err)
           reject(err.message)
           this.user.detail.syncing = false
         })
