@@ -5,12 +5,11 @@ import { Helmet } from 'react-helmet'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab';
 import List from '@material-ui/core/List'
-import { CircularProgress, withStyles } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 import Container from '../layout/container'
 import TopicListItem from './list-item'
 import TopicStore from './../../store/topic.store'
 import { tabs } from '../../util/variable-define'
-import { topicItemStyle } from './styles';
 
 @inject((stores) => {
   return {
@@ -19,7 +18,7 @@ import { topicItemStyle } from './styles';
   }
 })
 @observer
-class TopicList extends React.Component {
+export default class TopicList extends React.Component {
   static contextTypes = {
     router: PropTypes.object,
   }
@@ -59,7 +58,7 @@ class TopicList extends React.Component {
 
   onScroll() {
     if (
-      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 50)
+      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 10)
       &&
       !this.props.topicStore.syncing
       &&
@@ -162,6 +161,3 @@ TopicList.wrappedComponent.propTypes = {
   appState: PropTypes.object.isRequired,
 }
 
-const Topics = withStyles(topicItemStyle)(TopicList)
-
-export default Topics

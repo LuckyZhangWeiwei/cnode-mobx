@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames'
 import dateFormat from 'dateformat'
 import { withStyles } from '@material-ui/core/styles'
-import { topicPrimaryStyle, topicSecondaryStyle } from './styles';
+import { topicPrimaryStyle, topicSecondaryStyle, topicItemStyle } from './styles';
 import { tabs } from '../../util/variable-define'
 
 const Primary = ({ classes, topic }) => {
@@ -48,8 +48,8 @@ Secondary.protoTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-const TopicListItem = ({ onClick, topic }) => (
-  <ListItem button onClick={onClick}>
+const TopicListItem = ({ onClick, topic, classes }) => (
+  <ListItem button onClick={onClick} className={classes.root}>
     <ListItemAvatar>
       <Avatar src={topic.author.avatar_url} />
     </ListItemAvatar>
@@ -60,7 +60,7 @@ const TopicListItem = ({ onClick, topic }) => (
   </ListItem>
 )
 
-export default TopicListItem
+export default withStyles(topicItemStyle)(TopicListItem)
 
 TopicListItem.protoTypes = {
   topic: PropTypes.object.isRequired,
