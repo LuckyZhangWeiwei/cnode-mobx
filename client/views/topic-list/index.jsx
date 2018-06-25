@@ -5,12 +5,12 @@ import { Helmet } from 'react-helmet'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab';
 import List from '@material-ui/core/List'
-import { CircularProgress } from '@material-ui/core';
-import queryString from 'query-string'
+import { CircularProgress, withStyles } from '@material-ui/core';
 import Container from '../layout/container'
 import TopicListItem from './list-item'
 import TopicStore from './../../store/topic.store'
 import { tabs } from '../../util/variable-define'
+import { topicItemStyle } from './styles';
 
 @inject((stores) => {
   return {
@@ -19,7 +19,7 @@ import { tabs } from '../../util/variable-define'
   }
 })
 @observer
-export default class TopicList extends React.Component {
+class TopicList extends React.Component {
   static contextTypes = {
     router: PropTypes.object,
   }
@@ -42,10 +42,11 @@ export default class TopicList extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.location.search !== this.props.location.search) {
+    const nextCategory = nextProps.match.params.category
+    if (nextCategory !== this.props.match.params.category) {
       this.props.topicStore.topics = []
       this.props.topicStore.fetchTopics({
-        tab: this.getTab(nextProps.location.search),
+        tab: nextCategory,
         page: 1,
         limit: this.state.limit,
       })
@@ -73,14 +74,12 @@ export default class TopicList extends React.Component {
     }
   }
 
-  getTab(search = this.props.location.search) {
-    const query = queryString.parse(search)
-    return query.tab || 'all'
+  getTab(search = this.props.match.params.category) {
+    return search || 'all'
   }
 
   bootstrap() {
-    const query = queryString.parse(this.props.location.search)
-    const { tab } = query
+    const tab = this.getTab()
     return this.props.topicStore.fetchTopics({
       tab, page: this.state.page, limit: this.state.limit,
     }).then(() => {
@@ -91,10 +90,7 @@ export default class TopicList extends React.Component {
   }
 
   changeTab(e, value) {
-    this.context.router.history.push({
-      pathname: '/index',
-      search: `?tab=${value}`,
-    })
+    this.context.router.history.push(`/index/${value}`)
   }
 
   listItemClick(topic) {
@@ -112,7 +108,7 @@ export default class TopicList extends React.Component {
       <Container>
         <Helmet>
           <title>cnode</title>
-          <meta name="description" content="this is a description" />
+          <meta name="description" content={`this is meta ${tab}`} />
         </Helmet>
         <Tabs value={tab} onChange={this.changeTab}>
           {
@@ -165,6 +161,7 @@ TopicList.wrappedComponent.propTypes = {
   topicStore: PropTypes.instanceOf(TopicStore).isRequired,
   appState: PropTypes.object.isRequired,
 }
-TopicList.propTypes = {
-  location: PropTypes.object.isRequired,
-}
+
+const Topics = withStyles(topicItemStyle)(TopicList)
+
+export default Topics

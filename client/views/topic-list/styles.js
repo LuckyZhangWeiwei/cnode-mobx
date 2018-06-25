@@ -1,3 +1,11 @@
+export const topicItemStyle = () => {
+  return {
+    root: {
+      borderBottom: '1px solid #e9e9e9',
+    },
+  }
+}
+
 export const topicPrimaryStyle = (theme) => {
   return {
     root: {
