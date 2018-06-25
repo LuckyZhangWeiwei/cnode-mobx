@@ -17,7 +17,7 @@ const Primary = ({ classes, topic }) => {
   })
   return (
     <div className={classes.root}>
-      <span className={classNames}>{topic.top ? '置顶' : tabs[topic.tab]}</span>
+      <span className={classNames}>{ topic.top ? '置顶' : (topic.good ? '精华' : tabs[topic.tab]) }</span>
       <span className={classes.title}>{topic.title}</span>
     </div>
   )
