@@ -45,7 +45,7 @@ class Topic {
 }
 
 class TopicStore {
-  @observable topics
+  @observable topics = []
   @observable details
   @observable syncing = false
   @observable createTopics = []
@@ -77,7 +77,6 @@ class TopicStore {
         resolve()
       } else {
         this.syncing = true
-        // this.topics = []
         get('/topics', {
           mdrender: false,
           tab,
@@ -85,9 +84,6 @@ class TopicStore {
           limit,
         }).then((resp) => {
           if (resp.success) {
-            // this.topics = resp.data.map((topic) => {
-            //   return new Topic(createTopic(topic))
-            // })
             resp.data.forEach((topic) => {
               this.topics.push(new Topic(createTopic(topic)))
             })

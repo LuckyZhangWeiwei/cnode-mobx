@@ -2,7 +2,7 @@ import { observable, action, toJS } from 'mobx'
 import { post, get } from '../util/http'
 
 export default class AppState {
-  @observable scrollUp = false
+  @observable scrollUp = true
 
   @observable selectedTab = 'all'
 

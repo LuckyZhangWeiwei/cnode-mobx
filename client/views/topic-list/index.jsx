@@ -27,7 +27,6 @@ export default class TopicList extends React.Component {
       page: 1,
       limit: 15,
     }
-    this.changeTab = this.changeTab.bind(this)
     this.listItemClick = this.listItemClick.bind(this)
     this.onScroll = this.onScroll.bind(this)
   }
@@ -49,7 +48,6 @@ export default class TopicList extends React.Component {
       })
     }
   }
-
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll, false)
@@ -87,28 +85,24 @@ export default class TopicList extends React.Component {
     })
   }
 
-  changeTab(e, value) {
-    this.context.router.history.push(`/index/${value}`)
-  }
-
   listItemClick(topic) {
     this.context.router.history.push(`/detail/${topic.id}`)
   }
 
   render() {
     const { topicStore } = this.props
-    const topicList = topicStore.topics
-    const { createTopics } = topicStore
+    const topicList = topicStore.topics.slice()
+    // const { createTopics } = topicStore
     const syncingTopics = topicStore.syncing
     const tab = this.getTab()
-    const { user } = this.props.appState
+    // const { user } = this.props.appState
     return (
       <Container>
         <Helmet>
           <title>cnode</title>
           <meta name="description" content={`this is meta ${tab}`} />
         </Helmet>
-        {
+        {/* {
           createTopics && createTopics.length > 0 ?
             <List>
               {
@@ -128,7 +122,7 @@ export default class TopicList extends React.Component {
             </List>
             :
             null
-        }
+        } */}
         <List>
           {
             topicList.map(topic => (
@@ -150,6 +144,6 @@ export default class TopicList extends React.Component {
 
 TopicList.wrappedComponent.propTypes = {
   topicStore: PropTypes.instanceOf(TopicStore).isRequired,
-  appState: PropTypes.object.isRequired,
+  // appState: PropTypes.object.isRequired,
 }
 

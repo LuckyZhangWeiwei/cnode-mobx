@@ -49,6 +49,7 @@ class MainAppBar extends React.Component {
 
   onHomeIconClick() {
     this.context.router.history.push('/index/all')
+    this.props.appState.setSelectedTab('all')
   }
 
   getTab(search = 'all') {
@@ -78,12 +79,13 @@ class MainAppBar extends React.Component {
   }
 
   render() {
+    console.log('render')
     const { classes, user } = this.props
     const tab = this.getTab()
     return (
       <div className={classes.root}>
-        <AppBar position="fixed">
-          <Toolbar>
+        <AppBar position="fixed" style={{ overflow: 'hidden', height: 65 }}>
+          <Toolbar style={{ height: 0, overflow: 'hidden', minHeight: this.props.scrollUp ? 65 : 0, transition: 'all 0.4s ease-in' }}>
             <IconButton color="inherit" aria-label="Menu" onClick={this.onHomeIconClick}>
               <HomeIcon />
             </IconButton>
@@ -97,7 +99,7 @@ class MainAppBar extends React.Component {
                 <Button color="inherit" onClick={this.loginButtonClick}>登录</Button>
             }
           </Toolbar>
-          <Tabs value={tab} onChange={this.changeTab}>
+          <Tabs value={tab} onChange={this.changeTab} style={{ marginTop: 10 }}>
             {
             Object.keys(tabs).map(t => (
               <Tab key={t} label={tabs[t]} value={t} />
