@@ -79,7 +79,6 @@ class MainAppBar extends React.Component {
   }
 
   render() {
-    console.log('render')
     const { classes, user } = this.props
     const tab = this.getTab()
     return (
