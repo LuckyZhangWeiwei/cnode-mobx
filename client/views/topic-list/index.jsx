@@ -2,19 +2,17 @@ import React from 'react'
 import { observer, inject } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab';
 import List from '@material-ui/core/List'
 import { CircularProgress } from '@material-ui/core';
 import Container from '../layout/container'
 import TopicListItem from './list-item'
 import TopicStore from './../../store/topic.store'
-import { tabs } from '../../util/variable-define'
 
 @inject((stores) => {
   return {
     appState: stores.appState,
     topicStore: stores.topicStore,
+    selectedTab: stores.appState.selectedTab,
   }
 })
 @observer
@@ -51,6 +49,7 @@ export default class TopicList extends React.Component {
       })
     }
   }
+
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll, false)
@@ -109,16 +108,9 @@ export default class TopicList extends React.Component {
           <title>cnode</title>
           <meta name="description" content={`this is meta ${tab}`} />
         </Helmet>
-        <Tabs value={tab} onChange={this.changeTab}>
-          {
-            Object.keys(tabs).map(t => (
-              <Tab key={t} label={tabs[t]} value={t} />
-            ))
-          }
-        </Tabs>
         {
           createTopics && createTopics.length > 0 ?
-            <List style={{ backgroundColor: '#dfdfdf' }}>
+            <List>
               {
                 createTopics.map((topic) => {
                   topic = Object.assign({}, topic, {

@@ -2,6 +2,10 @@ import { observable, action, toJS } from 'mobx'
 import { post, get } from '../util/http'
 
 export default class AppState {
+  @observable scrollUp = false
+
+  @observable selectedTab = 'all'
+
   @observable user = {
     isLogin: false,
     info: {},
@@ -81,6 +85,14 @@ export default class AppState {
           this.user.collections.syncing = false
         })
     })
+  }
+
+  @action setScrollDirectionFlag(flag) {
+    this.scrollUp = flag
+  }
+
+  @action setSelectedTab(tab) {
+    this.selectedTab = tab
   }
 
   toJson() {

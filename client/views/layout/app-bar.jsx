@@ -8,10 +8,17 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import HomeIcon from '@material-ui/icons/Home'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import { tabs } from '../../util/variable-define'
 
 const styles = {
   root: {
     width: '100%',
+    marginLeft: 24,
+    marginRight: 24,
+    overflow: 'hidden',
+    display: 'block',
   },
   flex: {
     flex: 1,
@@ -21,6 +28,8 @@ const styles = {
 @inject((stores) => {
   return {
     user: stores.appState.user,
+    scrollUp: stores.appState.scrollUp,
+    appState: stores.appState,
   }
 })
 @observer
@@ -35,14 +44,29 @@ class MainAppBar extends React.Component {
     this.createButtonClick = this.createButtonClick.bind(this)
     this.loginButtonClick = this.loginButtonClick.bind(this)
     this.goUserInfo = this.goUserInfo.bind(this)
+    this.changeTab = this.changeTab.bind(this)
   }
 
   onHomeIconClick() {
-    this.context.router.history.push('/index?tab=all')
+    this.context.router.history.push('/index/all')
+  }
+
+  getTab(search = 'all') {
+    search = this.props.appState.selectedTab
+    return search
+  }
+
+  changeTab(e, value) {
+    this.context.router.history.push(`/index/${value}`)
+    this.props.appState.setSelectedTab(value)
   }
 
   createButtonClick() {
     this.context.router.history.push('/topic/create')
+  }
+
+  goUserInfo() {
+    this.context.router.history.push('/user/info')
   }
 
   loginButtonClick() {
@@ -53,12 +77,9 @@ class MainAppBar extends React.Component {
     }
   }
 
-  goUserInfo() {
-    this.context.router.history.push('/user/info')
-  }
-
   render() {
     const { classes, user } = this.props
+    const tab = this.getTab()
     return (
       <div className={classes.root}>
         <AppBar position="fixed">
@@ -76,6 +97,13 @@ class MainAppBar extends React.Component {
                 <Button color="inherit" onClick={this.loginButtonClick}>登录</Button>
             }
           </Toolbar>
+          <Tabs value={tab} onChange={this.changeTab}>
+            {
+            Object.keys(tabs).map(t => (
+              <Tab key={t} label={tabs[t]} value={t} />
+            ))
+          }
+          </Tabs>
         </AppBar>
       </div>
     )
