@@ -1,4 +1,5 @@
 import React from 'react'
+import Container from './../layout/container'
 
 export default class TopicDetail extends React.Component {
   componentDidMount() {
@@ -7,7 +8,7 @@ export default class TopicDetail extends React.Component {
 
   render() {
     return (
-      <div>this is a topic Detail</div>
+      <Container>this is a topic Detail</Container>
     )
   }
 }

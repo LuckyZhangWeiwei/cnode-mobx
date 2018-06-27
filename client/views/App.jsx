@@ -41,8 +41,8 @@ export default class App extends React.Component {
 
   render() {
     return [
-      <AppBar key="appbar" />,
       <Routes key="routes" />,
+      <AppBar key="appbar" />,
     ]
   }
 }

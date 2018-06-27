@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
 import List from '@material-ui/core/List'
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core'
 import Container from '../layout/container'
 import TopicListItem from './list-item'
 import TopicStore from './../../store/topic.store'
