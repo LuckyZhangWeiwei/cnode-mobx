@@ -49,8 +49,8 @@ class MainAppBar extends React.Component {
   }
 
   onHomeIconClick() {
-    this.props.topicStore.topics = []
     this.context.router.history.push('/index/all')
+    this.props.appState.setSelectedTab('all')
   }
 
   getTab(search = 'all') {
@@ -59,6 +59,7 @@ class MainAppBar extends React.Component {
   }
 
   changeTab(e, value) {
+    e.preventDefault()
     this.context.router.history.push(`/index/${value}`)
     this.props.appState.setSelectedTab(value)
   }

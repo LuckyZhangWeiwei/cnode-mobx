@@ -32,6 +32,7 @@ export default class TopicList extends React.Component {
   }
 
   componentDidMount() {
+    this.props.topicStore.topics = []
     const tab = this.getTab()
     this.props.topicStore.fetchTopics({ tab, page: this.state.page, limit: this.state.limit })
     window.addEventListener('scroll', this.onScroll, false)
@@ -70,8 +71,9 @@ export default class TopicList extends React.Component {
     }
   }
 
-  getTab(search = this.props.match.params.category) {
-    return search || 'all'
+  getTab(search = 'all') {
+    search = this.props.match.params.category
+    return search
   }
 
   bootstrap() {
