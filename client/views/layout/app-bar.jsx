@@ -10,7 +10,6 @@ import IconButton from '@material-ui/core/IconButton'
 import HomeIcon from '@material-ui/icons/Home'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import { withRouter } from 'react-router-dom'
 import { tabs } from '../../util/variable-define'
 
 const styles = {
@@ -26,7 +25,6 @@ const styles = {
   },
 }
 
-@withRouter
 @inject((stores) => {
   return {
     user: stores.appState.user,
@@ -51,7 +49,6 @@ class MainAppBar extends React.Component {
 
   onHomeIconClick() {
     this.context.router.history.push('/index/all')
-    this.props.appState.setSelectedTab('all')
   }
 
   getTab(search = 'all') {
