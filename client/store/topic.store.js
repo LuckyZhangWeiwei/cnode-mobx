@@ -8,13 +8,13 @@ import {
 import { topicSchema, replySchema } from '../util/variable-define'
 import { get, post } from '../util/http'
 
-const createTopic = (topic) => {
-  return Object.assign({}, topicSchema, topic)
-}
+const createTopic = topic => (
+  Object.assign({}, topicSchema, topic)
+)
 
-const createReply = (reply) => {
-  return Object.assign({}, replySchema, reply)
-}
+const createReply = reply => (
+  Object.assign({}, replySchema, reply)
+)
 
 class Topic {
   constructor(data) {
@@ -55,7 +55,7 @@ class TopicStore {
     syncing = false, topics = [], tab = null, details = [],
   } = {}) {
     this.syncing = syncing
-    this.topics = topics.map((topic) => { return new Topic(createTopic(topic)) })
+    this.topics = topics.map(topic => (new Topic(createTopic(topic))))
     this.details = details.map(detail => new Topic(createTopic(detail)))
     this.tab = tab
   }
@@ -66,8 +66,9 @@ class TopicStore {
 
   @computed get detailMap() {
     return this.details.reduce((result, detail) => {
-      result[detail.id] = detail
-      return result
+      const temp = result
+      temp[detail.id] = detail
+      return temp
     }, {})
   }
 

@@ -25,14 +25,14 @@ const styles = {
   },
 }
 
-@inject((stores) => {
-  return {
+@inject(stores => (
+  {
     user: stores.appState.user,
     scrollUp: stores.appState.scrollUp,
     appState: stores.appState,
     topicStore: stores.topicStore,
   }
-})
+))
 @observer
 class MainAppBar extends React.Component {
   static contextTypes = {
@@ -53,9 +53,8 @@ class MainAppBar extends React.Component {
     this.props.appState.setSelectedTab('all')
   }
 
-  getTab(search = 'all') {
-    search = this.props.appState.selectedTab
-    return search
+  getTab() {
+    return this.props.appState.selectedTab || 'all'
   }
 
   changeTab(e, value) {
@@ -86,7 +85,10 @@ class MainAppBar extends React.Component {
     return (
       <div className={classes.root}>
         <AppBar position="fixed" style={{ overflow: 'hidden', height: 65 }}>
-          <Toolbar style={{ height: 0, overflow: 'hidden', minHeight: this.props.scrollUp ? 65 : 0, transition: 'all 0.4s ease-in' }}>
+          <Toolbar style={{
+             height: 0, overflow: 'hidden', minHeight: this.props.scrollUp ? 65 : 0, transition: 'all 0.4s ease-in',
+         }
+         }>
             <IconButton color="inherit" aria-label="Menu" onClick={this.onHomeIconClick}>
               <HomeIcon />
             </IconButton>

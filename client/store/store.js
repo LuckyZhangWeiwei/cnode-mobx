@@ -11,9 +11,7 @@ export default {
   TopicStore,
 }
 
-export const createStoreMap = () => {
-  return {
-    appState: new AppState(),
-    topicStore: new TopicStore(),
-  }
-}
+export const createStoreMap = () => ({
+  appState: new AppState(),
+  topicStore: new TopicStore(),
+})

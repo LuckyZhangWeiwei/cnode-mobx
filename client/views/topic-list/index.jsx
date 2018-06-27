@@ -8,13 +8,13 @@ import Container from '../layout/container'
 import TopicListItem from './list-item'
 import TopicStore from './../../store/topic.store'
 
-@inject((stores) => {
-  return {
+@inject(stores => (
+  {
     appState: stores.appState,
     topicStore: stores.topicStore,
     selectedTab: stores.appState.selectedTab,
   }
-})
+))
 @observer
 export default class TopicList extends React.Component {
   static contextTypes = {
@@ -71,8 +71,8 @@ export default class TopicList extends React.Component {
     }
   }
 
-  getTab(search = 'all') {
-    search = this.props.match.params.category
+  getTab() {
+    const search = this.props.match.params.category || 'all'
     return search
   }
 
@@ -80,11 +80,11 @@ export default class TopicList extends React.Component {
     const tab = this.getTab()
     return this.props.topicStore.fetchTopics({
       tab, page: this.state.page, limit: this.state.limit,
-    }).then(() => {
-      return true
-    }).catch(() => {
-      return false
-    })
+    }).then(() => (
+      true
+    )).catch(() => (
+      false
+    ))
   }
 
   listItemClick(topic) {

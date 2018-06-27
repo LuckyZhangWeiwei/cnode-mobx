@@ -1,13 +1,13 @@
-export const topicItemStyle = () => {
-  return {
+export const topicItemStyle = () => (
+  {
     root: {
       borderBottom: '1px solid #e9e9e9',
     },
   }
-}
+)
 
-export const topicPrimaryStyle = (theme) => {
-  return {
+export const topicPrimaryStyle = theme => (
+  {
     root: {
       display: 'flex',
       alignItems: 'center',
@@ -34,10 +34,10 @@ export const topicPrimaryStyle = (theme) => {
       backgroundColor: theme.palette.accent[200],
     },
   }
-}
+)
 
-export const topicSecondaryStyle = (theme) => {
-  return {
+export const topicSecondaryStyle = theme => (
+  {
     root: {
       display: 'flex',
       alignItems: 'center',
@@ -56,10 +56,10 @@ export const topicSecondaryStyle = (theme) => {
       color: theme.palette.accent[500],
     },
   }
-}
+)
 
-export const topicListStyle = () => {
-  return {
+export const topicListStyle = () => (
+  {
     root: {
       margin: 24,
       marginTop: 80,
@@ -69,4 +69,4 @@ export const topicListStyle = () => {
       justifyContent: 'space-around',
     },
   }
-}
+)

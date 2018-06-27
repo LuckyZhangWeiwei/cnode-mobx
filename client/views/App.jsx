@@ -1,16 +1,17 @@
+/* eslint-disable */
 import React from 'react'
 import { observer, inject } from 'mobx-react'
+import PropTypes from 'prop-types'
 import Routes from '../config/router'
 
 let scrollTopValue
 
-@inject((stores) => {
-  return {
-    appState: stores.appState,
-  }
-})
+@inject(stores => ({
+  appState: stores.appState,
+}
+))
 @observer
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props)
     this.onScroll = this.onScroll.bind(this)
@@ -44,3 +45,10 @@ export default class App extends React.Component {
     ]
   }
 }
+
+export default App
+
+App.PropTypes = {
+  appState: PropTypes.object.isRequired,
+}
+/* eslint-enable */

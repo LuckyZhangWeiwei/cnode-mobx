@@ -10,24 +10,24 @@ const parseUrl = (url, params = {}) => {
    return `${url}?${str.substr(0, str.length - 1)}`
 }
 /* eslint-enable */
-export const get = (url, params = {}) => {
-  return new Promise((resolve, reject) => {
+export const get = (url, params = {}) => (
+  new Promise((resolve, reject) => {
     axios.get(parseUrl(`${baseUrl}/api${url}`, params))
       .then((resp) => {
         resolve(resp.data)
       }).catch(reject)
   })
-}
+)
 
-export const post = (url, data) => {
-  return new Promise((resolve, reject) => {
+export const post = (url, data) => (
+  new Promise((resolve, reject) => {
     axios.post(parseUrl(`${baseUrl}/api${url}`), data)
       .then((resp) => {
         resolve(resp.data)
       })
       .catch(reject)
   })
-}
+)
 
 export default {
   get, post,
