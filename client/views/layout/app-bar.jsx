@@ -30,6 +30,7 @@ const styles = {
     user: stores.appState.user,
     scrollUp: stores.appState.scrollUp,
     appState: stores.appState,
+    topicStore: stores.topicStore,
   }
 })
 @observer
@@ -48,6 +49,7 @@ class MainAppBar extends React.Component {
   }
 
   onHomeIconClick() {
+    this.props.topicStore.topics = []
     this.context.router.history.push('/index/all')
   }
 
