@@ -1,7 +1,6 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import Routes from '../config/router'
-import AppBar from './layout/app-bar'
 
 let scrollTopValue
 
@@ -42,7 +41,6 @@ export default class App extends React.Component {
   render() {
     return [
       <Routes key="routes" />,
-      <AppBar key="appbar" />,
     ]
   }
 }
