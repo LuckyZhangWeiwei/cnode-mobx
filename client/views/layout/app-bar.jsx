@@ -49,8 +49,9 @@ class MainAppBar extends React.Component {
   }
 
   onHomeIconClick() {
+    const { appState } = this.props
     this.context.router.history.push('/index/all')
-    this.props.appState.setSelectedTab('all')
+    appState.setSelectedTab('all')
   }
 
   getTab() {
@@ -104,9 +105,7 @@ class MainAppBar extends React.Component {
           </Toolbar>
           <Tabs value={tab} onChange={this.changeTab} style={{ marginTop: 10 }}>
             {
-            Object.keys(tabs).map(t => (
-              <Tab key={t} label={tabs[t]} value={t} />
-            ))
+            Object.keys(tabs).map(t => (<Tab key={t} label={tabs[t]} value={t} />))
           }
           </Tabs>
         </AppBar>
@@ -120,6 +119,7 @@ MainAppBar.wrappedComponent.protoTypes = {
 }
 
 MainAppBar.protoTypes = {
+  appState: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 }
 
