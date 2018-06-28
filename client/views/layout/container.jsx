@@ -6,8 +6,9 @@ import Paper from '@material-ui/core/Paper'
 
 const styles = {
   root: {
-    margin: 24,
+    margin: 5,
     marginTop: 80,
+    padding: 5,
   },
 }
 
