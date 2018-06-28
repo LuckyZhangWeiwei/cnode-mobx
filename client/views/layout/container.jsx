@@ -11,11 +11,20 @@ const styles = {
   },
 }
 
-const Container = ({ classes, children }) => (
-  <Paper elevation={4} className={classes.root}>
-    {children}
-  </Paper>
-)
+class Container extends React.Component {
+  render() {
+    // const marginTop = this.props.style ? this.props.style.marginTop : null
+    return (
+      <Paper
+        elevation={4}
+        className={this.props.classes.root}
+        {...this.props}
+      >
+        {this.props.children}
+      </Paper>
+    )
+  }
+}
 
 Container.protoTypes = {
   classes: PropTypes.object.isRequired,

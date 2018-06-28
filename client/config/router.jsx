@@ -11,7 +11,7 @@ class Routers extends React.PureComponent {
       <div>
         <Switch>
           <Route path="/" render={() => <Redirect to="/index/all" />} exact key="1" />
-          <Route path="/detail" component={TopicDetail} key="2" />
+          <Route path="/detail/:id" component={TopicDetail} key="2" />
           <Route path="/index/:category" component={TopicList} key="3" />
           <Route path="/topic/create" component={TopicCreate} key="4" />
         </Switch>
