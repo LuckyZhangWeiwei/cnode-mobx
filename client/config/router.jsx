@@ -1,9 +1,11 @@
 import React from 'react'
 import { Route, Redirect, withRouter, Switch } from 'react-router-dom'
+import Media from 'react-media'
 import TopicList from '../views/topic-list/index'
 import TopicDetail from '../views/topic-detail/index'
 import TopicCreate from '../views/topic-create/index'
 import AppBar from './../views/layout/app-bar'
+import DrawerBar from '../views/layout/drawer-bar'
 
 class Routers extends React.PureComponent {
   render() {
@@ -15,7 +17,13 @@ class Routers extends React.PureComponent {
           <Route path="/index/:category" component={TopicList} key="3" />
           <Route path="/topic/create" component={TopicCreate} key="4" />
         </Switch>
-        <Route component={AppBar} key="AppBar" />
+        <Media query="(max-width: 375px)">
+          {matches => matches ?
+            <Route component={DrawerBar} key="AppBar" />
+              :
+            <Route component={AppBar} key="AppBar" />
+          }
+        </Media>
       </div>
     )
   }

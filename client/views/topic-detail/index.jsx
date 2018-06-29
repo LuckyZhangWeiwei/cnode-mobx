@@ -69,7 +69,7 @@ class TopicDetail extends React.Component {
       )
     }
     return (
-      <div>
+      <div style={{ overflow: 'hidden' }}>
         <Container>
           <Helmet>
             <title>
