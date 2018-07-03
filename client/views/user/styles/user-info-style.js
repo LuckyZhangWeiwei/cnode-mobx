@@ -1,5 +1,5 @@
-export default (theme) => {
-  return {
+export default theme => (
+  {
     root: {
       padding: 16,
       minHeight: 400,
@@ -23,4 +23,4 @@ export default (theme) => {
       },
     },
   }
-}
+)
