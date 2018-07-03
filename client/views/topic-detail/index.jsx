@@ -143,6 +143,7 @@ TopicDetail.wrappedComponent.propTypes = {
 TopicDetail.propTypes = {
   match: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 export default withStyles(topicDetailStyle)(TopicDetail)

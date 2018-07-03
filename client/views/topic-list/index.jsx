@@ -148,5 +148,6 @@ export default class TopicList extends React.Component {
 
 TopicList.wrappedComponent.propTypes = {
   topicStore: PropTypes.instanceOf(TopicStore).isRequired,
-  // appState: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  appState: PropTypes.object.isRequired,
 }

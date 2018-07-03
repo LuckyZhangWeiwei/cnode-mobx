@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 
-
 const styles = {
   root: {
     margin: 5,
@@ -14,7 +13,6 @@ const styles = {
 
 class Container extends React.Component {
   render() {
-    // const marginTop = this.props.style ? this.props.style.marginTop : null
     return (
       <Paper
         elevation={4}
@@ -27,12 +25,12 @@ class Container extends React.Component {
   }
 }
 
-Container.protoTypes = {
+Container.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.element),
     PropTypes.element,
-  ]),
+  ]).isRequired,
 }
 
 export default withStyles(styles)(Container)

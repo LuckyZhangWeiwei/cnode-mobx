@@ -1,13 +1,12 @@
-/* eslint-disable */
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import React from 'react'
+import PropTypes from 'prop-types'
+import classNames from 'classnames'
+import { withStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
 import DrawerMenu from './drawer'
 
 const drawerWidth = 200;
@@ -94,15 +93,14 @@ const styles = theme => ({
 class DrawerBar extends React.Component {
   state = {
     open: false,
-    // anchor: 'left',
   };
 
   handleDrawerOpen = () => {
-    this.setState({ open: true });
+    this.setState({ open: true })
   };
 
   handleDrawerClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false })
   };
 
   render() {
@@ -112,30 +110,28 @@ class DrawerBar extends React.Component {
     return (
       <div>
         <AppBar position="fixed">
-            <Toolbar disableGutters={!open}>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={this.handleDrawerOpen}
-                className={classNames(classes.menuButton, open && classes.hide)}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="title" color="inherit" noWrap>
-                CNode
-              </Typography>
-            </Toolbar>
-          </AppBar>
-          <DrawerMenu isOpen={this.state.open} onClose={this.handleDrawerClose} />
-        </div>
+          <Toolbar disableGutters={!open}>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={this.handleDrawerOpen}
+              className={classNames(classes.menuButton, open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="title" color="inherit" noWrap>
+              CNode
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <DrawerMenu isOpen={this.state.open} onClose={this.handleDrawerClose} />
+      </div>
     )
   }
 }
 
 DrawerBar.propTypes = {
   classes: PropTypes.object.isRequired,
-  // theme: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles, { withTheme: true })(DrawerBar);
-/* eslint-enable */
+export default withStyles(styles, { withTheme: true })(DrawerBar)

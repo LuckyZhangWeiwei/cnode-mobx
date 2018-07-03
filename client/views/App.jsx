@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import PropTypes from 'prop-types'
@@ -46,9 +45,8 @@ class App extends React.Component {
   }
 }
 
-export default App
-
-App.PropTypes = {
+App.propTypes = {
   appState: PropTypes.object.isRequired,
 }
-/* eslint-enable */
+
+export default App

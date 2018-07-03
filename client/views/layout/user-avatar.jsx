@@ -1,8 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import { Avatar } from '@material-ui/core'
 import UserIcon from '@material-ui/icons/AccountCircle'
-import { withRouter } from 'react-router-dom'
 
 @inject(stores => (
   {
@@ -28,4 +28,9 @@ class UserAvatar extends React.Component {
   }
 }
 
-export default withRouter(UserAvatar)
+UserAvatar.propTypes = {
+  user: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
+}
+
+export default UserAvatar

@@ -122,13 +122,15 @@ class MainAppBar extends React.Component {
   }
 }
 
-MainAppBar.wrappedComponent.protoTypes = {
+MainAppBar.wrappedComponent.propTypes = {
   appState: PropTypes.object.isRequired,
 }
 
-MainAppBar.protoTypes = {
+MainAppBar.propTypes = {
   appState: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  scrollUp: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(MainAppBar)

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -34,9 +33,9 @@ class DrawerMenu extends React.Component {
         <List>
           {
             Object.keys(tabs).map(t => (
-            <ListItem button key={t} onClick={() => this.changeTab(t)}>
-              <ListItemText primary={tabs[t]} />
-            </ListItem>
+              <ListItem button key={t} onClick={() => this.changeTab(t)}>
+                <ListItemText primary={tabs[t]} />
+              </ListItem>
           ))
           }
         </List>
@@ -75,14 +74,13 @@ class DrawerMenu extends React.Component {
         </Drawer>
       </div>
     )
-
-
   }
 }
 
 DrawerMenu.propTypes = {
   classes: PropTypes.object.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(DrawerMenu);
-/* eslint-enable */

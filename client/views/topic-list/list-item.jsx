@@ -24,7 +24,7 @@ const Primary = ({ classes, topic }) => {
 }
 const StyledPrimary = withStyles(topicPrimaryStyle)(Primary)
 
-Primary.protoTypes = {
+Primary.propTypes = {
   topic: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 }
@@ -43,7 +43,7 @@ const Secondary = ({ classes, topic }) => (
 
 const StyledSecondary = withStyles(topicSecondaryStyle)(Secondary)
 
-Secondary.protoTypes = {
+Secondary.propTypes = {
   topic: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 }
@@ -62,7 +62,8 @@ const TopicListItem = ({ onClick, topic, classes }) => (
 
 export default withStyles(topicItemStyle)(TopicListItem)
 
-TopicListItem.protoTypes = {
+TopicListItem.propTypes = {
   topic: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 }
