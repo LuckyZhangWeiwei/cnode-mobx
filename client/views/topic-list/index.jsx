@@ -13,6 +13,7 @@ import TopicStore from './../../store/topic.store'
     appState: stores.appState,
     topicStore: stores.topicStore,
     selectedTab: stores.appState.selectedTab,
+    currentPath: stores.appState.currentPath,
   }
 ))
 @observer
@@ -89,6 +90,7 @@ export default class TopicList extends React.Component {
 
   listItemClick(topic) {
     this.context.router.history.push(`/detail/${topic.id}`)
+    this.props.appState.setCurrentPath(`/detail/${topic.id}`)
   }
 
   render() {
@@ -148,4 +150,3 @@ TopicList.wrappedComponent.propTypes = {
   topicStore: PropTypes.instanceOf(TopicStore).isRequired,
   // appState: PropTypes.object.isRequired,
 }
-

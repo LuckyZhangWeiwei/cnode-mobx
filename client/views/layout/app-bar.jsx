@@ -32,6 +32,7 @@ const styles = {
     scrollUp: stores.appState.scrollUp,
     appState: stores.appState,
     topicStore: stores.topicStore,
+    currentPath: stores.appState.currentPath,
   }
 ))
 @observer
@@ -42,9 +43,6 @@ class MainAppBar extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      num: 1,
-    }
     this.onHomeIconClick = this.onHomeIconClick.bind(this)
     this.createButtonClick = this.createButtonClick.bind(this)
     this.loginButtonClick = this.loginButtonClick.bind(this)
@@ -56,6 +54,7 @@ class MainAppBar extends React.Component {
     const { appState } = this.props
     this.context.router.history.push('/index/all')
     appState.setSelectedTab('all')
+    this.props.appState.setCurrentPath('/index/all')
   }
 
   getTab() {
@@ -70,21 +69,22 @@ class MainAppBar extends React.Component {
 
   createButtonClick() {
     this.context.router.history.push('/topic/create')
+    this.props.appState.setCurrentPath('/topic/create')
   }
 
   goUserInfo() {
     this.context.router.history.push('/user/info')
+    this.props.appState.setCurrentPath('/user/info')
   }
 
   loginButtonClick() {
     if (this.props.user.isLogin) {
       this.context.router.history.push('/user/info')
+      this.props.appState.setCurrentPath('/user/info')
     } else {
       this.context.router.history.push('/user/login')
+      this.props.appState.setCurrentPath('/user/login')
     }
-    this.setState({
-      num: Math.random(),
-    })
   }
 
   render() {
@@ -100,13 +100,13 @@ class MainAppBar extends React.Component {
             <IconButton color="inherit" aria-label="Menu" onClick={this.onHomeIconClick}>
               <HomeIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <Typography variant="title" color="inherit" className={classes.flex} onClick={this.onHomeIconClick}>
               JNode
             </Typography>
             <Button variant="raised" color="secondary" onClick={this.createButtonClick} style={{ marginRight: 10 }}>新建话题</Button>
             {
               user.isLogin ?
-                <UserAvatar onClick={this.loginButtonClick} location={this.state.num} />
+                <UserAvatar onClick={this.loginButtonClick} />
                 :
                 <Button color="inherit" onClick={this.loginButtonClick}>登录</Button>
             }

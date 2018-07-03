@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Redirect, withRouter, Switch } from 'react-router-dom'
+import { Route, Redirect, Switch } from 'react-router-dom'
 import Media from 'react-media'
 import TopicList from '../views/topic-list/index'
 import TopicDetail from '../views/topic-detail/index'
@@ -33,4 +33,4 @@ class Routers extends React.PureComponent {
   }
 }
 
-export default withRouter(Routers)
+export default Routers
