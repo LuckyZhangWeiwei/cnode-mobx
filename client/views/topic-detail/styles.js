@@ -1,4 +1,4 @@
-const topicDetailStyle = theme => (
+export const topicDetailStyle = theme => (
   {
     header: {
       padding: 20,
@@ -10,7 +10,8 @@ const topicDetailStyle = theme => (
     body: {
       padding: 20,
       '& img': {
-        maxWidth: '100%',
+        maxWidth: '80%',
+        maxHeight: '80%',
       },
       '& ul, & ol': {
         paddingLeft: 30,
@@ -67,9 +68,12 @@ const topicDetailStyle = theme => (
       },
     },
     loadingContainer: {
-      padding: 40,
+      padding: '40px 0',
       display: 'flex',
       justifyContent: 'space-around',
+    },
+    containerBar: {
+      overflow: 'hidden',
     },
   }
 )
@@ -80,7 +84,7 @@ export const replyStyle = {
   root: {
     display: 'flex',
     alignItems: 'flex-start',
-    padding: 20,
+    padding: 10,
     paddingBottom: 0,
     borderBottom: '1px solid #dfdfdf',
   },
@@ -89,8 +93,14 @@ export const replyStyle = {
   },
   right: {
     '& img': {
-      maxWidth: '100%',
+      maxWidth: '80%',
+      maxHeight: '80%',
       display: 'block',
     },
+  },
+  replyContent: {
+    wordBreak: 'break-all',
+    // wordWrap: 'break-word',
+    // whiteSpace: 'pre-wrap',
   },
 }

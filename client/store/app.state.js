@@ -6,6 +6,8 @@ export default class AppState {
 
   @observable selectedTab = 'all'
 
+  @observable currentPath = ''
+
   @observable user = {
     isLogin: false,
     info: {},
@@ -36,7 +38,7 @@ export default class AppState {
           this.user.isLogin = true
           resolve()
         } else {
-          reject(resp.data.msg)
+          reject(resp.data.error_msg)
         }
       }).catch((err) => {
         if (err.response) {
@@ -93,6 +95,10 @@ export default class AppState {
 
   @action setSelectedTab(tab) {
     this.selectedTab = tab
+  }
+
+  @action setCurrentPath(path) {
+    this.currentPath = path
   }
 
   toJson() {

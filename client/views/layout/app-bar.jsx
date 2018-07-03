@@ -11,6 +11,7 @@ import HomeIcon from '@material-ui/icons/Home'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import { tabs } from '../../util/variable-define'
+import UserAvatar from '../layout/user-avatar'
 
 const styles = {
   root: {
@@ -41,6 +42,9 @@ class MainAppBar extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      num: 1,
+    }
     this.onHomeIconClick = this.onHomeIconClick.bind(this)
     this.createButtonClick = this.createButtonClick.bind(this)
     this.loginButtonClick = this.loginButtonClick.bind(this)
@@ -78,6 +82,9 @@ class MainAppBar extends React.Component {
     } else {
       this.context.router.history.push('/user/login')
     }
+    this.setState({
+      num: Math.random(),
+    })
   }
 
   render() {
@@ -96,17 +103,18 @@ class MainAppBar extends React.Component {
             <Typography variant="title" color="inherit" className={classes.flex}>
               JNode
             </Typography>
-            <Button variant="raised" color="secondary" onClick={this.createButtonClick}>新建话题</Button>
+            <Button variant="raised" color="secondary" onClick={this.createButtonClick} style={{ marginRight: 10 }}>新建话题</Button>
             {
               user.isLogin ?
-                <Button variant="raised" color="secondary" onClick={this.goUserInfo}>{user.info.loginname}</Button> :
+                <UserAvatar onClick={this.loginButtonClick} location={this.state.num} />
+                :
                 <Button color="inherit" onClick={this.loginButtonClick}>登录</Button>
             }
           </Toolbar>
           <Tabs value={tab} onChange={this.changeTab} style={{ marginTop: 10 }}>
             {
-            Object.keys(tabs).map(t => (<Tab key={t} label={tabs[t]} value={t} />))
-          }
+              Object.keys(tabs).map(t => (<Tab key={t} label={tabs[t]} value={t} />))
+            }
           </Tabs>
         </AppBar>
       </div>

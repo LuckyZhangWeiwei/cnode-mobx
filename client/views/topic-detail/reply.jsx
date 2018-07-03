@@ -13,7 +13,10 @@ const Reply = ({ reply, classes }) => (
     </div>
     <div className={classes.right}>
       <span>{`${reply.author.loginname} | ${dateFormat(reply.create_at, 'yy-mm-dd')}`}</span>
-      <p dangerouslySetInnerHTML={{ __html: marked(reply.content) }} />
+      <div
+        dangerouslySetInnerHTML={{ __html: marked(reply.content) }}
+        className={classes.replyContent}
+      />
     </div>
   </div>
 )

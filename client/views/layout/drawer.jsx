@@ -23,9 +23,7 @@ class DrawerMenu extends React.Component {
     router: PropTypes.object,
   }
   changeTab(value) {
-    console.log('value:', value)
     this.context.router.history.push(`/index/${value}`)
-    this.props.appState.setSelectedTab(value)
   }
 
   render() {

@@ -12,6 +12,7 @@ import { topicDetailStyle } from './styles'
 import Reply from './reply'
 import TopicStore from '../../store/topic.store'
 
+
 @inject(stores => (
   {
     topicStore: stores.topicStore,
@@ -20,19 +21,18 @@ import TopicStore from '../../store/topic.store'
 ))
 @observer
 class TopicDetail extends React.Component {
-  // constructor(props) {
-  //   super(props)
+  constructor(props) {
+    super(props)
+    this.state = {
+      newReply: '',
+    }
 
-  //   this.state = {
-  //     newReply: '',
-  //   }
+    //   this.handleNewReplyChange = this.handleNewReplyChange.bind(this)
 
-  //   this.handleNewReplyChange = this.handleNewReplyChange.bind(this)
+    this.goToLogin = this.goToLogin.bind(this)
 
-  //   this.goToLogin = this.goToLogin.bind(this)
-
-  //   this.doReply = this.doReply.bind(this)
-  // }
+    this.doReply = this.doReply.bind(this)
+  }
   componentDidMount() {
     const id = this.getTopicId()
 
@@ -47,13 +47,13 @@ class TopicDetail extends React.Component {
   // // do
   // }
 
-  // goToLogin() {
-  // // do
-  // }
+  goToLogin() {
+    this.props.history.push('/user/login')
+  }
 
-  // doReply() {
-  // // do
-  // }
+  doReply() {
+    this.props.history.push('/user/login')
+  }
 
   render() {
     const id = this.getTopicId()
@@ -63,13 +63,13 @@ class TopicDetail extends React.Component {
       return (
         <Container>
           <section className={classes.loadingContainer}>
-            <CircularProgress color="accent" />
+            <CircularProgress size={80} />
           </section>
         </Container>
       )
     }
     return (
-      <div style={{ overflow: 'hidden' }}>
+      <div className={classes.containerBar}>
         <Container>
           <Helmet>
             <title>
@@ -83,7 +83,16 @@ class TopicDetail extends React.Component {
             <p dangerouslySetInnerHTML={{ __html: marked(topic.content) }} />
           </section>
         </Container>
-        <Container style={{ marginTop: 0 }}>
+        <Container
+          style={{
+             marginTop: 0, paddingLeft: 0, paddingRight: 0, margin: 0,
+            }}
+          className={classes.replies}
+        >
+          <header className={classes.replyHeader}>
+            <span>{`${topic.reply_count} 回复`}</span>
+            <span>{`最新回复 ${dateFormat(topic.last_reply_at, 'yy-mm-dd')}`}</span>
+          </header>
           {
             user.isLogin ?
               <section className={classes.replyEditor}>
@@ -97,7 +106,7 @@ class TopicDetail extends React.Component {
                     placeholder: '添加回复',
                   }}
                 />
-                <Button fab color="primary" onClick={this.doReply} className={classes.replyButton}>回复</Button>
+                <Button variant="raised" color="secondary" onClick={this.doReply} className={classes.replyButton}>回复</Button>
               </section>
             :
             null
@@ -105,21 +114,22 @@ class TopicDetail extends React.Component {
           {
             !user.isLogin &&
             <section className={classes.notLoginButton}>
-              <Button color="accent" onClick={this.goToLogin}>登录后回复</Button>
+              <Button variant="raised" color="secondary" onClick={this.goToLogin}>登录后回复</Button>
             </section>
           }
         </Container>
-        <Container style={{ marginTop: 0 }}>
-          <header className={classes.replyHeader}>
-            <span>{`${topic.reply_count} 回复`}</span>
-            <span>{`最新回复 ${dateFormat(topic.last_reply_at, 'yy-mm-dd')}`}</span>
-          </header>
-          <section>
-            {
-              topic.replies.map(reply => <Reply reply={reply} key={reply.id} />)
-            }
-          </section>
-        </Container>
+        {
+          topic.replies.slice().length > 0 ?
+            <Container style={{ marginTop: 0 }}>
+              <section>
+                {
+                  topic.replies.map(reply => <Reply reply={reply} key={reply.id} />)
+                }
+              </section>
+            </Container>
+          :
+          null
+        }
       </div>
     )
   }
