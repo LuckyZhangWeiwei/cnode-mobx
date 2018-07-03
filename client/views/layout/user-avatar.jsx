@@ -14,7 +14,7 @@ class UserAvatar extends React.Component {
   render() {
     const { info, isLogin } = this.props.user
     return (
-      <div onClick={this.props.onClick} onKeyDown={this.props.onClick} role="form">
+      <div onClick={this.props.onClick} onKeyDown={this.props.onClick} role="button" tabIndex="0">
         {
           isLogin ?
             <Avatar src={info.avatar_url} />

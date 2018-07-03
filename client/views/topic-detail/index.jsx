@@ -15,8 +15,10 @@ import TopicStore from '../../store/topic.store'
 
 @inject(stores => (
   {
+    appState: stores.appState,
     topicStore: stores.topicStore,
     user: stores.appState.user,
+    currentPath: stores.appState.currentPath,
   }
 ))
 @observer
@@ -49,6 +51,7 @@ class TopicDetail extends React.Component {
 
   goToLogin() {
     this.props.history.push('/user/login')
+    this.props.appState.setCurrentPath('/user/login')
   }
 
   doReply() {
@@ -144,6 +147,7 @@ TopicDetail.propTypes = {
   match: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  appState: PropTypes.object.isRequired,
 }
 
 export default withStyles(topicDetailStyle)(TopicDetail)
