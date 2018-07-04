@@ -4,7 +4,8 @@ import marked from 'marked'
 import Helmet from 'react-helmet'
 import { inject, observer } from 'mobx-react'
 import { withStyles } from '@material-ui/core/styles'
-import { CircularProgress, Button } from '@material-ui/core';
+import { CircularProgress, Button } from '@material-ui/core'
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp'
 import dateFormat from 'dateformat'
 import SimpleMDE from 'react-simplemde-editor'
 import Container from '../layout/container'
@@ -27,6 +28,7 @@ class TopicDetail extends React.Component {
     super(props)
     this.state = {
       newReply: '',
+      showScrollBtn: false,
     }
 
     //   this.handleNewReplyChange = this.handleNewReplyChange.bind(this)
@@ -34,11 +36,35 @@ class TopicDetail extends React.Component {
     this.goToLogin = this.goToLogin.bind(this)
 
     this.doReply = this.doReply.bind(this)
+
+    this.onScroll = this.onScroll.bind(this)
+
+    this.scrollTop = this.scrollTop.bind(this)
   }
   componentDidMount() {
     const id = this.getTopicId()
 
     this.props.topicStore.getTopicDetail(id)
+
+    window.addEventListener('scroll', this.onScroll, false)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll, false)
+  }
+
+  onScroll() {
+    if (
+      window.scrollY >= window.innerHeight - 50
+    ) {
+      this.setState({
+        showScrollBtn: true,
+      })
+    } else {
+      this.setState({
+        showScrollBtn: false,
+      })
+    }
   }
 
   getTopicId() {
@@ -58,6 +84,10 @@ class TopicDetail extends React.Component {
     this.props.history.push('/user/login')
   }
 
+  scrollTop() {
+    document.documentElement.scrollTop = 0
+  }
+
   render() {
     const id = this.getTopicId()
     const topic = this.props.topicStore.detailMap[id]
@@ -73,7 +103,7 @@ class TopicDetail extends React.Component {
     }
     return (
       <div className={classes.containerBar}>
-        <Container>
+        <Container style={{ marginTop: 65 }}>
           <Helmet>
             <title>
               {topic.title}
@@ -133,6 +163,23 @@ class TopicDetail extends React.Component {
           :
           null
         }
+        {
+          this.state.showScrollBtn ?
+            <Button
+              variant="fab"
+              color="primary"
+              aria-label="add"
+              style={{
+                 position: 'fixed', bottom: 10, right: 15,
+                 }}
+              onClick={this.scrollTop}
+            >
+              <KeyboardArrowUp />
+            </Button>
+          :
+          null
+        }
+
       </div>
     )
   }
