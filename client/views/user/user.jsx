@@ -20,7 +20,7 @@ class User extends React.Component {
       <Container>
         <div className={classes.avatar}>
           <div className={classes.bg}>
-            <UserAvatar onClick={null} className={classes.avatarImg} />
+            <UserAvatar className={classes.avatarImg} />
             <span className={classes.userName}>{isLogin ? info.loginname : '未登录'}</span>
           </div>
         </div>
