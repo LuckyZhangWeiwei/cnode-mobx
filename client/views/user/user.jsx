@@ -1,10 +1,10 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { Avatar, withStyles } from '@material-ui/core'
-import UserIcon from '@material-ui/icons/AccountCircle'
+import { withStyles } from '@material-ui/core'
 import userStyles from './styles/user-style'
 import Container from '../layout/container'
+import UserAvatar from '../layout/user-avatar'
 
 @inject(stores => (
   {
@@ -20,13 +20,7 @@ class User extends React.Component {
       <Container>
         <div className={classes.avatar}>
           <div className={classes.bg}>
-            {
-              info.avatar_url ?
-                <Avatar className={classes.avatarImg} src={info.avatar_url} /> :
-                <Avatar className={classes.avatarImg}>
-                  <UserIcon />
-                </Avatar>
-            }
+            <UserAvatar onClick={null} className={classes.avatarImg} />
             <span className={classes.userName}>{isLogin ? info.loginname : '未登录'}</span>
           </div>
         </div>

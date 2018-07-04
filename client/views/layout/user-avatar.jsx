@@ -17,9 +17,9 @@ class UserAvatar extends React.Component {
       <div onClick={this.props.onClick} onKeyDown={this.props.onClick} role="button" tabIndex="0">
         {
           isLogin ?
-            <Avatar src={info.avatar_url} />
+            <Avatar src={info.avatar_url} {...this.props} />
           :
-            <Avatar >
+            <Avatar {...this.props}>
               <UserIcon />
             </Avatar>
         }
@@ -28,9 +28,13 @@ class UserAvatar extends React.Component {
   }
 }
 
+UserAvatar.defaultProps = {
+  onClick: null,
+}
+
 UserAvatar.propTypes = {
   user: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 }
 
 export default UserAvatar
