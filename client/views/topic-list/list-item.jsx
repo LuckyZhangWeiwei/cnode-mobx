@@ -1,5 +1,5 @@
 import React from 'react'
-import ListItemText from '@material-ui/core/ListItemText';
+// import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar'
@@ -53,10 +53,10 @@ const TopicListItem = ({ onClick, topic, classes }) => (
     <ListItemAvatar>
       <Avatar src={topic.author.avatar_url} />
     </ListItemAvatar>
-    <ListItemText
-      primary={<StyledPrimary topic={topic} />}
-      secondary={<StyledSecondary topic={topic} />}
-    />
+    <div style={{ marginLeft: 10 }}>
+      <StyledPrimary topic={topic} />
+      <StyledSecondary topic={topic} />
+    </div>
   </ListItem>
 )
 

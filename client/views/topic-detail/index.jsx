@@ -92,9 +92,9 @@ class TopicDetail extends React.Component {
           newReply: '',
         })
       })
-      .catch((err) => {
-        console.log('err:', err)
-      })
+      // .catch((err) => {
+      //   alert(err)
+      // })
   }
 
   scrollTop() {
@@ -170,9 +170,9 @@ class TopicDetail extends React.Component {
                   onChange={this.handleNewReplyChange}
                   value={this.state.newReply}
                   options={{
-                    toolbar: false,
-                    autoFocus: false,
-                    spellChecker: false,
+                    // toolbar: false,
+                    // autoFocus: false,
+                    // spellChecker: false,
                     placeholder: '添加回复',
                   }}
                 />

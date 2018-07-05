@@ -124,9 +124,9 @@ class TopicCreate extends React.Component {
               onChange={this.handleContentChange}
               value={this.state.content}
               options={{
-                toolbar: false,
-                autoFocus: false,
-                spellChecker: false,
+                // toolbar: false,
+                // autoFocus: false,
+                // spellChecker: false,
                 placeholder: '发表你的精彩意见',
               }}
             />
