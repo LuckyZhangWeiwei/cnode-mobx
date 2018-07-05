@@ -8,6 +8,7 @@ import { CircularProgress, Button } from '@material-ui/core'
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp'
 import dateFormat from 'dateformat'
 import SimpleMDE from 'react-simplemde-editor'
+import IconReply from '@material-ui/icons/Reply'
 import Container from '../layout/container'
 import { topicDetailStyle } from './styles'
 import Reply from './reply'
@@ -31,7 +32,7 @@ class TopicDetail extends React.Component {
       showScrollBtn: false,
     }
 
-    //   this.handleNewReplyChange = this.handleNewReplyChange.bind(this)
+    this.handleNewReplyChange = this.handleNewReplyChange.bind(this)
 
     this.goToLogin = this.goToLogin.bind(this)
 
@@ -71,9 +72,11 @@ class TopicDetail extends React.Component {
     return this.props.match.params.id
   }
 
-  // handleNewReplyChange() {
-  // // do
-  // }
+  handleNewReplyChange(value) {
+    this.setState({
+      newReply: value,
+    })
+  }
 
   goToLogin() {
     this.props.history.push('/user/login')
@@ -81,7 +84,17 @@ class TopicDetail extends React.Component {
   }
 
   doReply() {
-    this.props.history.push('/user/login')
+    const id = this.getTopicId()
+    const topic = this.props.topicStore.detailMap[id]
+    topic.doReply(this.state.newReply)
+      .then(() => {
+        this.setState({
+          newReply: '',
+        })
+      })
+      .catch((err) => {
+        console.log('err:', err)
+      })
   }
 
   scrollTop() {
@@ -116,6 +129,30 @@ class TopicDetail extends React.Component {
             <p dangerouslySetInnerHTML={{ __html: marked(topic.content) }} />
           </section>
         </Container>
+        {
+          topic.createdReplies && topic.createdReplies.slice().length ?
+            <Container style={{ marginTop: 10 }}>
+              <header className={classes.replyHeader}>
+                <span>我的最新回复</span>
+                <span>{`${topic.createdReplies.slice().length}条`}</span>
+              </header>
+              {
+              topic.createdReplies.map(reply => (
+                <Reply
+                  reply={Object.assign({}, reply, {
+                  author: {
+                    avatar_url: user.info.avatar_url,
+                    loginname: user.info.loginname,
+                  },
+                })}
+                  key={reply.id}
+                />
+              ))
+            }
+            </Container>
+          :
+          null
+        }
         <Container
           style={{
              marginTop: 0, paddingLeft: 0, paddingRight: 0, margin: 0,
@@ -139,21 +176,23 @@ class TopicDetail extends React.Component {
                     placeholder: '添加回复',
                   }}
                 />
-                <Button variant="raised" color="secondary" onClick={this.doReply} className={classes.replyButton}>回复</Button>
+                <Button variant="fab" color="secondary" onClick={this.doReply} className={classes.replyButton}>
+                  <IconReply />
+                </Button>
               </section>
             :
             null
           }
           {
             !user.isLogin &&
-            <section className={classes.notLoginButton}>
-              <Button variant="raised" color="secondary" onClick={this.goToLogin}>登录后回复</Button>
+            <section className={classes.notLoginButtonSection}>
+              <Button variant="raised" color="secondary" className={classes.LoginBtn} onClick={this.goToLogin}>登录后回复</Button>
             </section>
           }
         </Container>
         {
           topic.replies.slice().length > 0 ?
-            <Container style={{ marginTop: 0 }}>
+            <Container style={{ marginTop: 10 }}>
               <section>
                 {
                   topic.replies.map(reply => <Reply reply={reply} key={reply.id} />)
@@ -164,20 +203,18 @@ class TopicDetail extends React.Component {
           null
         }
         {
-          this.state.showScrollBtn ?
+          this.state.showScrollBtn &&
             <Button
               variant="fab"
               color="primary"
               aria-label="add"
               style={{
-                 position: 'fixed', bottom: 10, right: 15,
+                 position: 'fixed', bottom: 10, right: 15, zIndex: 1000,
                  }}
               onClick={this.scrollTop}
             >
               <KeyboardArrowUp />
             </Button>
-          :
-          null
         }
 
       </div>

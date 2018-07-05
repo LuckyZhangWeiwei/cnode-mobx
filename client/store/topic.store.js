@@ -24,15 +24,15 @@ class Topic {
   @observable syncing=false
   @observable createdReplies = []
 
-  @action doReply(replyContent) {
+  @action doReply(content) {
     return new Promise((resolve, reject) => {
       post(`/topic/${this.id}/replies?needAccessToken=true`, {
-        replyContent,
+        content,
       }).then((resp) => {
         if (resp.success) {
           this.createdReplies.push(createReply({
             id: resp.reply_id,
-            content: replyContent,
+            content,
             create_at: Date.now(),
           }))
           resolve()

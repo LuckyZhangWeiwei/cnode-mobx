@@ -27,8 +27,13 @@ class UserInfo extends React.Component {
   }
 
   componentDidMount() {
-    this.props.appState.getUserDetail()
-    this.props.appState.getUserCollection()
+    if (!this.props.user.isLogin) {
+      this.context.router.history.replace('/user/login')
+      this.props.appState.setCurrentPath('/user/login')
+    } else {
+      this.props.appState.getUserDetail()
+      this.props.appState.getUserCollection()
+    }
   }
 
   gotoTopic(topic) {
@@ -46,9 +51,9 @@ class UserInfo extends React.Component {
 
   render() {
     const { classes } = this.props
-    const topics = this.props.user.detail.recent_topics
-    const replies = this.props.user.detail.recent_replies
-    const collections = this.props.user.collections.list
+    const topics = this.props.user.detail.recent_topics.slice()
+    const replies = this.props.user.detail.recent_replies.slice()
+    const collections = this.props.user.collections.list.slice()
     return (
       <UserWrapper>
         <div className={classes.root}>

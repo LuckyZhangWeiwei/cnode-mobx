@@ -34,9 +34,15 @@ export const topicDetailStyle = theme => (
       margin: '0 24px',
       marginBottom: 24,
     },
-    notLoginButton: {
+    notLoginButtonSection: {
       textAlign: 'center',
-      padding: '20px 0',
+      padding: '5px 0',
+    },
+    LoginBtn: {
+      '@media screen and (max-width: 480px)': {
+        width: '100%',
+      },
+      margin: '3px',
     },
     '@media screen and (max-width: 480px)': {
       replies: {
