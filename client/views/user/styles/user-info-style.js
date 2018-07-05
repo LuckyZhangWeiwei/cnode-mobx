@@ -3,6 +3,7 @@ export default theme => (
     root: {
       padding: 16,
       minHeight: 400,
+      overflow: 'hidden',
     },
     gridContainer: {
       height: '100%',

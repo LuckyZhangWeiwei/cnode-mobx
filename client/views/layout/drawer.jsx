@@ -92,7 +92,7 @@ class DrawerMenu extends React.Component {
 DrawerMenu.propTypes = {
   classes: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
   user: PropTypes.bool.isRequired,
   appState: PropTypes.bool.isRequired,
 };

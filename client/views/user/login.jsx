@@ -13,6 +13,7 @@ import loginStyles from './styles/login-style'
   {
     appState: stores.appState,
     user: stores.appState.user,
+    currentPath: stores.appState.currentPath,
   }
 ))
 @observer
@@ -31,7 +32,6 @@ class UserLogin extends React.Component {
     this.handleLogin = this.handleLogin.bind(this)
     this.handleInput = this.handleInput.bind(this)
   }
-
 
   getFrom(location) {
     const l = location || this.props.location
@@ -52,8 +52,9 @@ class UserLogin extends React.Component {
       .then(() => {
         this.setState({
           helpText: '',
-          error: true,
+          error: false,
         })
+        return true
       })
       .catch((error) => {
         this.setState({
@@ -74,13 +75,15 @@ class UserLogin extends React.Component {
     const { isLogin } = this.props.user
     const from = this.getFrom()
     if (isLogin) {
+      this.props.appState.setCurrentPath(from)
+      // this.context.router.history.push(from)
       return (
         <Redirect to={from} />
       )
     }
 
     return (
-      <UserWrapper>
+      <UserWrapper location={this.props.currentPath}>
         <div className={classes.root}>
           <TextField
             label="请输入Cnode AccessToken"
@@ -113,6 +116,7 @@ UserLogin.propTypes = {
 
 UserLogin.wrappedComponent.propTypes = {
   appState: PropTypes.object.isRequired,
+  currentPath: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
 }
 
