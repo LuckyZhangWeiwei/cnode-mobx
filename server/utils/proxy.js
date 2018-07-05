@@ -19,8 +19,6 @@ module.exports = (req, res, next) => {
   })
   if(query.needAccessToken) delete query.needAccessToken
 
-  console.log('req.body:', req.body)
-
   axios(`${baseUrl}${path}`,{
     method: req.method,
     params:query,

@@ -96,29 +96,29 @@ export default class TopicList extends React.Component {
   render() {
     const { topicStore } = this.props
     const topicList = topicStore.topics.slice()
-    // const { createTopics } = topicStore
+    const { createTopics } = topicStore
     const syncingTopics = topicStore.syncing
     const tab = this.getTab()
-    // const { user } = this.props.appState
+    const { user } = this.props.appState
     return (
       <Container>
         <Helmet>
           <title>cnode</title>
           <meta name="description" content={`this is meta ${tab}`} />
         </Helmet>
-        {/* {
+        {
           createTopics && createTopics.length > 0 ?
             <List>
               {
                 createTopics.map((topic) => {
-                  topic = Object.assign({}, topic, {
+                  const t = Object.assign({}, topic, {
                     author: user.info,
                   })
                   return (
                     <TopicListItem
-                      key={topic.id}
-                      onClick={() => this.listItemClick(topic)}
-                      topic={topic}
+                      key={t.id}
+                      onClick={() => this.listItemClick(t)}
+                      topic={t}
                     />
                 )
               })
@@ -126,7 +126,7 @@ export default class TopicList extends React.Component {
             </List>
             :
             null
-        } */}
+        }
         <List>
           {
             topicList.map(topic => (
