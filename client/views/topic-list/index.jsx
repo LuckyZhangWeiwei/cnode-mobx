@@ -101,7 +101,7 @@ export default class TopicList extends React.Component {
     const tab = this.getTab()
     const { user } = this.props.appState
     return (
-      <Container>
+      <Container style={{ overflow: 'hidden' }}>
         <Helmet>
           <title>cnode</title>
           <meta name="description" content={`this is meta ${tab}`} />

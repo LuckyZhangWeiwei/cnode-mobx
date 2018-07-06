@@ -126,7 +126,10 @@ class TopicDetail extends React.Component {
             <h3>{topic.title}</h3>
           </header>
           <section>
-            <p dangerouslySetInnerHTML={{ __html: marked(topic.content) }} />
+            <div
+              className={classes.content}
+              dangerouslySetInnerHTML={{ __html: marked(topic.content) }}
+            />
           </section>
         </Container>
         {

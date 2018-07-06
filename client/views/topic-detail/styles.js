@@ -12,6 +12,8 @@ export const topicDetailStyle = theme => (
       '& img': {
         maxWidth: '80%',
         maxHeight: '80%',
+        marginBottom: '2px',
+        marginTop: '2px',
       },
       '& ul, & ol': {
         paddingLeft: 30,
@@ -19,6 +21,14 @@ export const topicDetailStyle = theme => (
           marginBottom: 7,
         },
       },
+    },
+    content: {
+      '& img': {
+        maxHeight: '100%',
+        maxWidth: '100%',
+      },
+      fontSize: '.9rem',
+      padding: '.5rem',
     },
     replyHeader: {
       padding: '10px 20px',
@@ -108,5 +118,6 @@ export const replyStyle = {
     wordBreak: 'break-all',
     // wordWrap: 'break-word',
     // whiteSpace: 'pre-wrap',
+    fontSize: '.9rem',
   },
 }

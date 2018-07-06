@@ -2,6 +2,7 @@ export const topicItemStyle = () => (
   {
     root: {
       borderBottom: '1px solid #e9e9e9',
+      wordBreak: 'break-all',
     },
   }
 )

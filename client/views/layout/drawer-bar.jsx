@@ -2,10 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { withStyles } from '@material-ui/core/styles'
+import { inject, observer } from 'mobx-react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
+import AddIcon from '@material-ui/icons/Add'
 import MenuIcon from '@material-ui/icons/Menu'
 import DrawerMenu from './drawer'
 
@@ -46,6 +48,9 @@ const styles = theme => ({
   menuButton: {
     marginLeft: 12,
     marginRight: 20,
+  },
+  AddButton: {
+    marginLeft: '40%',
   },
   hide: {
     display: 'none',
@@ -90,10 +95,25 @@ const styles = theme => ({
   },
 });
 
+@inject(stores => (
+  {
+    appState: stores.appState,
+    currentPath: stores.appState.currentPath,
+  }
+))
+@observer
 class DrawerBar extends React.Component {
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+
   state = {
     open: false,
   };
+
+  componentWillReceiveProps() {
+    this.props.appState.setCurrentPath('')
+  }
 
   handleDrawerOpen = () => {
     this.setState({ open: true })
@@ -102,6 +122,11 @@ class DrawerBar extends React.Component {
   handleDrawerClose = () => {
     this.setState({ open: false })
   };
+
+  goToCreateTopic = () => {
+    this.context.router.history.push('/topic/create')
+    this.props.appState.setCurrentPath('/topic/create')
+  }
 
   render() {
     const { classes } = this.props;
@@ -122,6 +147,14 @@ class DrawerBar extends React.Component {
             <Typography variant="title" color="inherit" noWrap>
               CNode
             </Typography>
+            <IconButton
+              color="inherit"
+              className={classes.AddButton}
+              aria-label="button"
+              onClick={this.goToCreateTopic}
+            >
+              <AddIcon />
+            </IconButton>
           </Toolbar>
         </AppBar>
         <DrawerMenu isOpen={this.state.open} onClose={this.handleDrawerClose} />
@@ -132,6 +165,7 @@ class DrawerBar extends React.Component {
 
 DrawerBar.propTypes = {
   classes: PropTypes.object.isRequired,
+  appState: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles, { withTheme: true })(DrawerBar)
