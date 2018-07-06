@@ -89,12 +89,15 @@ class DrawerMenu extends React.Component {
   }
 }
 
+DrawerMenu.wrappedComponent.propTypes = {
+  user: PropTypes.object.isRequired,
+  appState: PropTypes.object.isRequired,
+}
+
 DrawerMenu.propTypes = {
   classes: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  appState: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(DrawerMenu);

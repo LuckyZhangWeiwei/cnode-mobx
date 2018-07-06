@@ -135,8 +135,6 @@ UserInfo.wrappedComponent.propTypes = {
 
 UserInfo.propTypes = {
   classes: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
-  // currentPath: PropTypes.string.isRequired,
 }
 
 export default withStyles(infoStyles)(UserInfo)

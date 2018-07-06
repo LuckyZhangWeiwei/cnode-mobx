@@ -163,7 +163,7 @@ class DrawerBar extends React.Component {
   }
 }
 
-DrawerBar.propTypes = {
+DrawerBar.wrappedComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   appState: PropTypes.object.isRequired,
 }

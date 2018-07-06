@@ -45,7 +45,7 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
+App.wrappedComponent.propTypes = {
   appState: PropTypes.object.isRequired,
 }
 

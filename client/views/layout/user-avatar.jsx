@@ -32,8 +32,11 @@ UserAvatar.defaultProps = {
   onClick: null,
 }
 
-UserAvatar.propTypes = {
+UserAvatar.wrappedComponent.propTypes = {
   user: PropTypes.object.isRequired,
+}
+
+UserAvatar.propTypes = {
   onClick: PropTypes.func,
 }
 
