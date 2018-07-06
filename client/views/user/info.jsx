@@ -27,13 +27,8 @@ class UserInfo extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.user.isLogin) {
-      this.context.router.history.replace('/user/login')
-      this.props.appState.setCurrentPath('/user/login')
-    } else {
-      this.props.appState.getUserDetail()
-      this.props.appState.getUserCollection()
-    }
+    this.props.appState.getUserDetail()
+    this.props.appState.getUserCollection()
   }
 
   gotoTopic(topic) {

@@ -1,5 +1,4 @@
 import React from 'react'
-// import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar'
@@ -49,8 +48,8 @@ Secondary.propTypes = {
 }
 
 const TopicListItem = ({ onClick, topic, classes }) => (
-  <ListItem button onClick={onClick} className={classes.root}>
-    <ListItemAvatar>
+  <ListItem button className={classes.root} onClick={onClick}>
+    <ListItemAvatar onClick={() => { alert(1) }}>
       <Avatar src={topic.author.avatar_url} />
     </ListItemAvatar>
     <div style={{ marginLeft: 10 }}>

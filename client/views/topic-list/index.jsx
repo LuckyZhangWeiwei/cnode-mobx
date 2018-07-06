@@ -107,7 +107,7 @@ export default class TopicList extends React.Component {
           <meta name="description" content={`this is meta ${tab}`} />
         </Helmet>
         {
-          createTopics && createTopics.length > 0 ?
+          (createTopics && createTopics.length > 0) ?
             <List>
               {
                 createTopics.map((topic) => {
@@ -139,7 +139,7 @@ export default class TopicList extends React.Component {
           }
         </List>
         {
-          syncingTopics ? (<div style={{ display: 'flex', justifyContent: 'space-around', padding: '40px 0' }}><CircularProgress size={80} /></div>) : null
+          syncingTopics ? (<div style={{ display: 'flex', justifyContent: 'space-around', padding: '40px 0' }}><CircularProgress size={60} /></div>) : null
         }
       </Container>
     )

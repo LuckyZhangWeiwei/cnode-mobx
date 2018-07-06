@@ -93,8 +93,8 @@ DrawerMenu.propTypes = {
   classes: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  user: PropTypes.bool.isRequired,
-  appState: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
+  appState: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(DrawerMenu);

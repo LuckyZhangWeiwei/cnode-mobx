@@ -25,6 +25,12 @@ module.exports = (bundle, template, req, res) => {
 
     const stores = createStoreMap()
 
+    const user =req.session.user
+    if (user) {
+      stores.appState.user.info = user
+      stores.appState.user.isLogin = true
+    }
+
     const theme = createMuiTheme({
       palette: {
         primary: colors.lightBlue,

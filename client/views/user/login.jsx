@@ -76,7 +76,6 @@ class UserLogin extends React.Component {
     const from = this.getFrom()
     if (isLogin) {
       this.props.appState.setCurrentPath(from)
-      // this.context.router.history.push(from)
       return (
         <Redirect to={from} />
       )
