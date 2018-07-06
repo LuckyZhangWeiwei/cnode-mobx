@@ -26,9 +26,12 @@ export const topicDetailStyle = theme => (
       '& img': {
         maxHeight: '100%',
         maxWidth: '100%',
+        marginBottom: '2px',
+        marginTop: '2px',
       },
       fontSize: '.9rem',
       padding: '.5rem',
+
     },
     replyHeader: {
       padding: '10px 20px',
@@ -63,7 +66,7 @@ export const topicDetailStyle = theme => (
     replyEditor: {
       position: 'relative',
       padding: 24,
-      borderBottom: '1px solid #dfdfdf',
+      // borderBottom: '1px solid #dfdfdf',
       '& .CodeMirror': {
         height: 150,
         minHeight: 'auto',
@@ -103,6 +106,9 @@ export const replyStyle = {
     padding: 10,
     paddingBottom: 0,
     borderBottom: '1px solid #dfdfdf',
+    '&:last-child': {
+      borderBottom: 'none',
+    },
   },
   left: {
     marginRight: 20,
