@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 import MenuIcon from '@material-ui/icons/Menu'
+import ReplyIcon from '@material-ui/icons/KeyboardBackspace'
 import DrawerMenu from './drawer'
 
 const drawerWidth = 200;
@@ -107,25 +108,52 @@ class DrawerBar extends React.Component {
     router: PropTypes.object,
   }
 
-  state = {
-    open: false,
-  };
-
-  componentWillReceiveProps() {
-    this.props.appState.setCurrentPath('')
+  constructor(props) {
+    super(props)
+    this.state = {
+      open: false,
+      previousPath: '',
+    }
+    this.handleDrawerOpen = this.handleDrawerOpen.bind(this)
+    this.handleDrawerClose = this.handleDrawerClose.bind(this)
+    this.goToCreateTopic = this.goToCreateTopic.bind(this)
+    this.goback = this.goback.bind(this)
   }
 
-  handleDrawerOpen = () => {
+  componentWillReceiveProps(nextProps) {
+    // console.log('componentWillReceiveProps:', nextProps)
+    // this.props.appState.setCurrentPath(Math.random().toString())
+    if (this.props.location !== nextProps.location) {
+      this.setState({
+        previousPath: this.props.location.pathname,
+      })
+    }
+  }
+
+  handleDrawerOpen() {
     this.setState({ open: true })
-  };
+  }
 
-  handleDrawerClose = () => {
+  handleDrawerClose() {
     this.setState({ open: false })
-  };
+  }
 
-  goToCreateTopic = () => {
+  goToCreateTopic() {
     this.context.router.history.push('/topic/create')
     this.props.appState.setCurrentPath('/topic/create')
+  }
+
+  goback() {
+    // console.log('this.context.router:', this.props.currentPath)
+    // this.props.history.goBack()
+    // const preLink = this.props.location.pathname
+    // // console.log('preLink:', preLink)
+    // this.context.router.history.replace(preLink)
+    // this.props.appState.setCurrentPath(preLink)
+    if (this.state.previousPath) {
+      this.context.router.history.replace(this.state.previousPath)
+      this.props.appState.setCurrentPath(this.state.previousPath)
+    }
   }
 
   render() {
@@ -155,6 +183,13 @@ class DrawerBar extends React.Component {
             >
               <AddIcon />
             </IconButton>
+            <IconButton
+              color="inherit"
+              aria-label="button"
+              onClick={this.goback}
+            >
+              <ReplyIcon />
+            </IconButton>
           </Toolbar>
         </AppBar>
         <DrawerMenu isOpen={this.state.open} onClose={this.handleDrawerClose} />
@@ -166,6 +201,11 @@ class DrawerBar extends React.Component {
 DrawerBar.wrappedComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   appState: PropTypes.object.isRequired,
+}
+DrawerBar.propTypes = {
+  // currentPath: PropTypes.object.isRequired,
+  // history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles, { withTheme: true })(DrawerBar)
