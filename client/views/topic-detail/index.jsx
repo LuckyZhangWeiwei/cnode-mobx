@@ -228,13 +228,13 @@ class TopicDetail extends React.Component {
 TopicDetail.wrappedComponent.propTypes = {
   topicStore: PropTypes.instanceOf(TopicStore).isRequired,
   user: PropTypes.object.isRequired,
+  appState: PropTypes.object.isRequired,
 }
 
 TopicDetail.propTypes = {
   match: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  appState: PropTypes.object.isRequired,
 }
 
 export default withStyles(topicDetailStyle)(TopicDetail)
