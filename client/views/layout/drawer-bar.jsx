@@ -51,7 +51,7 @@ const styles = theme => ({
     marginRight: 20,
   },
   AddButton: {
-    marginLeft: '40%',
+    marginLeft: '30%',
   },
   hide: {
     display: 'none',
