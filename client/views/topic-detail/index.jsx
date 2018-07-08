@@ -99,6 +99,7 @@ class TopicDetail extends React.Component {
 
   scrollTop() {
     document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
   }
 
   render() {

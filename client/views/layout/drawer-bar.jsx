@@ -157,9 +157,9 @@ class DrawerBar extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
-    const { open } = this.state;
-
+    const { classes } = this.props
+    const { open } = this.state
+    const { pathname } = this.props.location
     return (
       <div>
         <AppBar position="fixed">
@@ -183,13 +183,19 @@ class DrawerBar extends React.Component {
             >
               <AddIcon />
             </IconButton>
-            <IconButton
-              color="inherit"
-              aria-label="button"
-              onClick={this.goback}
-            >
-              <ReplyIcon />
-            </IconButton>
+            {
+              pathname.indexOf('detail') >= 0 ?
+                <IconButton
+                  color="inherit"
+                  aria-label="button"
+                  onClick={this.goback}
+                >
+                  <ReplyIcon />
+                </IconButton>
+              :
+              null
+            }
+
           </Toolbar>
         </AppBar>
         <DrawerMenu isOpen={this.state.open} onClose={this.handleDrawerClose} />
