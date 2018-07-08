@@ -1,11 +1,13 @@
 import React from 'react'
 import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+// import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import PropTypes from 'prop-types';
 import cx from 'classnames'
 import dateFormat from 'dateformat'
 import { withStyles } from '@material-ui/core/styles'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import { topicPrimaryStyle, topicSecondaryStyle, topicItemStyle } from './styles';
 import { tabs } from '../../util/variable-define'
 
@@ -47,15 +49,19 @@ Secondary.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-const TopicListItem = ({ onClick, topic, classes }) => (
-  <ListItem button className={classes.root} onClick={onClick}>
-    <ListItemAvatar onClick={() => { alert(1) }}>
+const TopicListItem = ({
+  onClick, onSecondClick, topic, classes,
+}) => (
+  <ListItem button className={classes.root}>
+    <ListItemSecondaryAction onClick={onSecondClick} style={{ left: 10, right: '100%' }}>
       <Avatar src={topic.author.avatar_url} />
-    </ListItemAvatar>
-    <div style={{ marginLeft: 10 }}>
-      <StyledPrimary topic={topic} />
-      <StyledSecondary topic={topic} />
-    </div>
+    </ListItemSecondaryAction>
+    <ListItemText onClick={onClick} style={{ marginLeft: 40 }}>
+      <div>
+        <StyledPrimary topic={topic} />
+        <StyledSecondary topic={topic} />
+      </div>
+    </ListItemText >
   </ListItem>
 )
 
@@ -65,4 +71,5 @@ TopicListItem.propTypes = {
   topic: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  onSecondClick: PropTypes.func.isRequired,
 }

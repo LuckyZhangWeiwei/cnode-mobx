@@ -27,8 +27,15 @@ class UserInfo extends React.Component {
   }
 
   componentDidMount() {
-    this.props.appState.getUserDetail()
-    this.props.appState.getUserCollection()
+    const { loginname } = this.context.router.route.match.params
+    this.props.appState.getUserDetail(loginname)
+    this.props.appState.getUserCollection(loginname)
+  }
+
+  componentWillReceiveProps(nextProp) {
+    const { loginname } = nextProp.match.params
+    this.props.appState.getUserDetail(loginname)
+    this.props.appState.getUserCollection(loginname)
   }
 
   gotoTopic(topic) {
@@ -37,8 +44,9 @@ class UserInfo extends React.Component {
   }
 
   bootstrap() {
-    return this.props.appState.getUserDetail().then(() => (
-      this.props.appState.getUserCollection().then(() => (
+    const { loginname } = this.context.router.route.match.params
+    return this.props.appState.getUserDetail(loginname).then(() => (
+      this.props.appState.getUserCollection(loginname).then(() => (
         true
       ))
     ))

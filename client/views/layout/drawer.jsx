@@ -41,8 +41,8 @@ class DrawerMenu extends React.Component {
 
   goTo() {
     if (this.props.user.isLogin) {
-      this.context.router.history.push('/user/info')
-      this.props.appState.setCurrentPath('/user/info')
+      this.context.router.history.push(`/user/${this.props.user.info.loginname}`)
+      this.props.appState.setCurrentPath(`/user/${this.props.user.info.loginname}`)
     } else {
       this.context.router.history.push('/user/login')
       this.props.appState.setCurrentPath('/user/login')

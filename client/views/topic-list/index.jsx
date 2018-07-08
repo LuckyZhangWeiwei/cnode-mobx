@@ -93,6 +93,12 @@ export default class TopicList extends React.Component {
     this.props.appState.setCurrentPath(`/detail/${topic.id}`)
   }
 
+  userAvatarClick(topic) {
+    const { author } = topic
+    this.context.router.history.push(`/user/${author.loginname}`)
+    this.props.appState.setCurrentPath(`/user/${author.loginname}`)
+  }
+
   render() {
     const { topicStore } = this.props
     const topicList = topicStore.topics.slice()
@@ -133,6 +139,7 @@ export default class TopicList extends React.Component {
               <TopicListItem
                 key={topic.id}
                 onClick={() => this.listItemClick(topic)}
+                onSecondClick={() => this.userAvatarClick(topic)}
                 topic={topic}
               />
             ))

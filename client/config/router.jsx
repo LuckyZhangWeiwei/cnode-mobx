@@ -71,7 +71,8 @@ class Routers extends React.PureComponent {
           <Route path="/index/:category" exact component={TopicList} key="3" />
           <InjectedPrivateRoute path="/topic/create" component={TopicCreate} key="4" />
           <Route path="/user/login" exact component={UserLogin} key="5" />
-          <InjectedPrivateRoute path="/user/info" component={UserInfo} key="6" />
+          {/* <InjectedPrivateRoute path="/user/info" component={UserInfo} key="6" /> */}
+          <Route path="/user/:loginname" component={UserInfo} key="6" />
         </Switch>
       </div>
     )

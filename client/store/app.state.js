@@ -50,10 +50,10 @@ export default class AppState {
     })
   }
 
-  @action getUserDetail() {
+  @action getUserDetail(loginname) {
     this.user.detail.syncing = true
     return new Promise((resolve, reject) => {
-      get(`/user/${this.user.info.loginname}`)
+      get(`/user/${loginname}`)
         .then((resp) => {
           if (resp.success) {
             this.user.detail.recent_replies = resp.data.recent_replies
@@ -70,10 +70,10 @@ export default class AppState {
     })
   }
 
-  @action getUserCollection() {
+  @action getUserCollection(loginname) {
     this.user.collections.syncing = true
     return new Promise((resolve, reject) => {
-      get(`/topic_collect/${this.user.info.loginname}`)
+      get(`/topic_collect/${loginname}`)
         .then((resp) => {
           if (resp.success) {
             this.user.collections.list = resp.data
