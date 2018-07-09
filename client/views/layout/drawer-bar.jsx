@@ -184,7 +184,7 @@ class DrawerBar extends React.Component {
               <AddIcon />
             </IconButton>
             {
-              pathname.indexOf('detail') >= 0 ?
+              (pathname.indexOf('detail') >= 0 || pathname.indexOf('create') >= 0) ?
                 <IconButton
                   color="inherit"
                   aria-label="button"

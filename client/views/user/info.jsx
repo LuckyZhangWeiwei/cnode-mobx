@@ -38,6 +38,12 @@ class UserInfo extends React.Component {
     this.props.appState.getUserCollection(loginname)
   }
 
+  componentWillUnmount() {
+    this.props.user.detail.recent_topics = []
+    this.props.user.detail.recent_replies = []
+    this.props.user.collections.list = []
+  }
+
   gotoTopic(topic) {
     this.context.router.history.push(`/detail/${topic.id}`)
     this.props.appState.setCurrentPath(`/detail/${topic.id}`)
