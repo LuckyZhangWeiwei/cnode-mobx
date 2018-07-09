@@ -36,7 +36,7 @@ class UserLogin extends React.Component {
   getFrom(location) {
     const l = location || this.props.location
     const query = queryString.parse(l.search)
-    return query.from || '/user/info'
+    return query.from || `/user/${this.props.user.info.loginname}`
   }
 
   handleLogin() {

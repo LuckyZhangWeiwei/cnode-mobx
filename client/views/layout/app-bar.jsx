@@ -46,7 +46,6 @@ class MainAppBar extends React.Component {
     this.onHomeIconClick = this.onHomeIconClick.bind(this)
     this.createButtonClick = this.createButtonClick.bind(this)
     this.loginButtonClick = this.loginButtonClick.bind(this)
-    this.goUserInfo = this.goUserInfo.bind(this)
     this.changeTab = this.changeTab.bind(this)
   }
 
@@ -65,16 +64,12 @@ class MainAppBar extends React.Component {
     e.preventDefault()
     this.context.router.history.push(`/index/${value}`)
     this.props.appState.setSelectedTab(value)
+    this.props.appState.setCurrentPath(`/index/${value}`)
   }
 
   createButtonClick() {
     this.context.router.history.push('/topic/create')
     this.props.appState.setCurrentPath('/topic/create')
-  }
-
-  goUserInfo() {
-    this.context.router.history.push('/user/info')
-    this.props.appState.setCurrentPath('/user/info')
   }
 
   loginButtonClick() {

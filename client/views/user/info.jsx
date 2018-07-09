@@ -49,6 +49,11 @@ class UserInfo extends React.Component {
     this.props.appState.setCurrentPath(`/detail/${topic.id}`)
   }
 
+  goToUser(url) {
+    this.context.router.history.push(url)
+    this.props.appState.setCurrentPath(url)
+  }
+
   bootstrap() {
     const { loginname } = this.context.router.route.match.params
     return this.props.appState.getUserDetail(loginname).then(() => (
@@ -80,6 +85,7 @@ class UserInfo extends React.Component {
                           key={topic.id}
                           topic={topic}
                           onClick={() => this.gotoTopic(topic)}
+                          onSecondClick={() => this.goToUser(`/user/${topic.author.loginname}`)}
                         />
                       ))
                       :
@@ -103,6 +109,7 @@ class UserInfo extends React.Component {
                           topic={topic}
                           key={topic.id}
                           onClick={() => this.gotoTopic(topic)}
+                          onSecondClick={() => this.goToUser(`/user/${topic.author.loginname}`)}
                         />
                       ))
                       :
@@ -126,6 +133,7 @@ class UserInfo extends React.Component {
                           topic={topic}
                           key={topic.id}
                           onClick={() => this.gotoTopic(topic)}
+                          onSecondClick={() => this.goToUser(`/user/${topic.author.loginname}`)}
                         />
                     )) :
                       <Typography align="center">

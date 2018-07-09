@@ -109,6 +109,7 @@ export const replyStyle = {
     '&:last-child': {
       borderBottom: 'none',
     },
+    position: 'relative',
   },
   left: {
     marginRight: 20,
@@ -118,6 +119,7 @@ export const replyStyle = {
       maxWidth: '80%',
       maxHeight: '80%',
       display: 'block',
+      marginRight: 40,
     },
   },
   replyContent: {

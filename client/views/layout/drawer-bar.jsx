@@ -121,8 +121,6 @@ class DrawerBar extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log('componentWillReceiveProps:', nextProps)
-    // this.props.appState.setCurrentPath(Math.random().toString())
     if (this.props.location !== nextProps.location) {
       this.setState({
         previousPath: this.props.location.pathname,
@@ -144,12 +142,6 @@ class DrawerBar extends React.Component {
   }
 
   goback() {
-    // console.log('this.context.router:', this.props.currentPath)
-    // this.props.history.goBack()
-    // const preLink = this.props.location.pathname
-    // // console.log('preLink:', preLink)
-    // this.context.router.history.replace(preLink)
-    // this.props.appState.setCurrentPath(preLink)
     if (this.state.previousPath) {
       this.context.router.history.replace(this.state.previousPath)
       this.props.appState.setCurrentPath(this.state.previousPath)
@@ -175,14 +167,19 @@ class DrawerBar extends React.Component {
             <Typography variant="title" color="inherit" noWrap>
               CNode
             </Typography>
-            <IconButton
-              color="inherit"
-              className={classes.AddButton}
-              aria-label="button"
-              onClick={this.goToCreateTopic}
-            >
-              <AddIcon />
-            </IconButton>
+            {
+              pathname.indexOf('create') >= 0 ?
+              null
+              :
+              <IconButton
+                color="inherit"
+                className={classes.AddButton}
+                aria-label="button"
+                onClick={this.goToCreateTopic}
+              >
+                <AddIcon />
+              </IconButton>
+            }
             {
               (pathname.indexOf('detail') >= 0 || pathname.indexOf('create') >= 0) ?
                 <IconButton

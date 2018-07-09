@@ -97,6 +97,11 @@ class TopicDetail extends React.Component {
       // })
   }
 
+  gotoUsers(url) {
+    this.props.history.push(url)
+    this.props.appState.setCurrentPath(url)
+  }
+
   scrollTop() {
     document.documentElement.scrollTop = 0
     document.body.scrollTop = 0
@@ -150,6 +155,7 @@ class TopicDetail extends React.Component {
                   },
                 })}
                   key={reply.id}
+                  onSecondClick={() => this.gotoUsers(`/user/${user.info.loginname}`)}
                 />
               ))
             }
@@ -199,7 +205,12 @@ class TopicDetail extends React.Component {
             <Container style={{ marginTop: 10 }}>
               <section>
                 {
-                  topic.replies.map(reply => <Reply reply={reply} key={reply.id} />)
+                  topic.replies.map(reply =>
+                    (<Reply
+                      reply={reply}
+                      key={reply.id}
+                      onSecondClick={() => this.gotoUsers(`/user/${reply.author.loginname}`)}
+                    />))
                 }
               </section>
             </Container>
