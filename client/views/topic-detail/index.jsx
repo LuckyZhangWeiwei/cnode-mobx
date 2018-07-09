@@ -88,13 +88,19 @@ class TopicDetail extends React.Component {
     const topic = this.props.topicStore.detailMap[id]
     topic.doReply(this.state.newReply)
       .then(() => {
+        const createdReply = topic.createdReplies[topic.createdReplies.length - 1]
+        const newReply = Object.assign({}, createdReply, {
+          author: {
+            avatar_url: this.props.user.info.avatar_url || this.props.user.info.avatarUrl,
+            loginname: this.props.user.info.loginname,
+          },
+          isNew: true,
+        })
+        topic.replies = [newReply, ...topic.replies]
         this.setState({
           newReply: '',
         })
       })
-      // .catch((err) => {
-      //   alert(err)
-      // })
   }
 
   gotoUsers(url) {
@@ -138,31 +144,6 @@ class TopicDetail extends React.Component {
             />
           </section>
         </Container>
-        {
-          topic.createdReplies && topic.createdReplies.slice().length ?
-            <Container style={{ marginTop: 10 }}>
-              <header className={classes.replyHeader}>
-                <span>我的最新回复</span>
-                <span>{`${topic.createdReplies.slice().length}条`}</span>
-              </header>
-              {
-              topic.createdReplies.map(reply => (
-                <Reply
-                  reply={Object.assign({}, reply, {
-                  author: {
-                    avatar_url: user.info.avatar_url,
-                    loginname: user.info.loginname,
-                  },
-                })}
-                  key={reply.id}
-                  onSecondClick={() => this.gotoUsers(`/user/${user.info.loginname}`)}
-                />
-              ))
-            }
-            </Container>
-          :
-          null
-        }
         <Container
           style={{
              marginTop: 0, paddingLeft: 0, paddingRight: 0, margin: 0,
@@ -170,7 +151,7 @@ class TopicDetail extends React.Component {
           className={classes.replies}
         >
           <header className={classes.replyHeader}>
-            <span>{`${topic.reply_count} 回复`}</span>
+            <span>{`${topic.replies.length} 回复`}</span>
             <span>{`最新回复 ${dateFormat(topic.last_reply_at, 'yy-mm-dd')}`}</span>
           </header>
           {
@@ -180,9 +161,6 @@ class TopicDetail extends React.Component {
                   onChange={this.handleNewReplyChange}
                   value={this.state.newReply}
                   options={{
-                    // toolbar: false,
-                    // autoFocus: false,
-                    // spellChecker: false,
                     placeholder: '添加回复',
                   }}
                 />
@@ -209,6 +187,7 @@ class TopicDetail extends React.Component {
                     (<Reply
                       reply={reply}
                       key={reply.id}
+                      isNew={reply.isNew}
                       onSecondClick={() => this.gotoUsers(`/user/${reply.author.loginname}`)}
                     />))
                 }

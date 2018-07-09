@@ -128,4 +128,18 @@ export const replyStyle = {
     // whiteSpace: 'pre-wrap',
     fontSize: '.9rem',
   },
+  coloranimate: {
+    animation: 'updatedcolor 1s',
+  },
+  '@keyframes updatedcolor': {
+    '0%': {
+      backgroundColor: '#FFFFCC',
+    },
+    '50%': {
+      backgroundColor: '#FFFFCC',
+    },
+    '100%': {
+      backgroundColor: '#FFFFFF',
+    },
+  },
 }
