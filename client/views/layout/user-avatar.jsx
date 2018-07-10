@@ -17,7 +17,7 @@ class UserAvatar extends React.Component {
       <div onClick={this.props.onClick} onKeyDown={this.props.onClick} role="button" tabIndex="0">
         {
           isLogin ?
-            <Avatar src={info.avatar_url} {...this.props} />
+            <Avatar src={info.avatar_url || info.avatarUrl} {...this.props} />
           :
             <Avatar {...this.props}>
               <UserIcon />
