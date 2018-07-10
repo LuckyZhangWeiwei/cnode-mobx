@@ -53,7 +53,7 @@ const TopicListItem = ({
 }) => (
   <ListItem button className={classes.root}>
     <ListItemSecondaryAction onClick={onSecondClick} style={{ left: 10, right: '100%' }}>
-      <Avatar src={topic.author.avatar_url} />
+      <Avatar src={topic.author.avatar_url || topic.author.avatarUrl} />
     </ListItemSecondaryAction>
     <ListItemText onClick={onClick} style={{ marginLeft: 40 }}>
       <div>
