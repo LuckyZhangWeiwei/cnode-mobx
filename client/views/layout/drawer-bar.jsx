@@ -10,6 +10,8 @@ import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 import MenuIcon from '@material-ui/icons/Menu'
 import ReplyIcon from '@material-ui/icons/KeyboardBackspace'
+import Star from '@material-ui/icons/Star'
+import StartBorder from '@material-ui/icons/StarBorder'
 import DrawerMenu from './drawer'
 
 const drawerWidth = 200;
@@ -51,7 +53,7 @@ const styles = theme => ({
     marginRight: 20,
   },
   AddButton: {
-    marginLeft: '30%',
+    marginLeft: '45%',
   },
   hide: {
     display: 'none',
@@ -100,6 +102,7 @@ const styles = theme => ({
   {
     appState: stores.appState,
     currentPath: stores.appState.currentPath,
+    topicStore: stores.topicStore,
   }
 ))
 @observer
@@ -126,6 +129,15 @@ class DrawerBar extends React.Component {
         previousPath: this.props.location.pathname,
       })
     }
+  }
+
+  getTopicId() {
+    return this.props.location.pathname.split('/')[2]
+  }
+
+  collect(operType) {
+    const topicId = this.getTopicId()
+    this.props.topicStore.handleTopicCollection(operType, topicId)
   }
 
   handleDrawerOpen() {
@@ -168,29 +180,55 @@ class DrawerBar extends React.Component {
               CNode
             </Typography>
             {
-              pathname.indexOf('create') >= 0 ?
-              null
+              pathname.indexOf('index') >= 0 ?
+                <IconButton
+                  color="inherit"
+                  className={classes.AddButton}
+                  aria-label="button"
+                  onClick={this.goToCreateTopic}
+                >
+                  <AddIcon />
+                </IconButton>
               :
-              <IconButton
-                color="inherit"
-                className={classes.AddButton}
-                aria-label="button"
-                onClick={this.goToCreateTopic}
-              >
-                <AddIcon />
-              </IconButton>
+              null
             }
             {
-              (pathname.indexOf('detail') >= 0 || pathname.indexOf('create') >= 0) ?
+              pathname.indexOf('detail') >= 0 ?
                 <IconButton
                   color="inherit"
                   aria-label="button"
+                  className={classes.AddButton}
                   onClick={this.goback}
                 >
                   <ReplyIcon />
                 </IconButton>
               :
               null
+            }
+            {
+              (pathname.indexOf('detail') >= 0 && this.props.topicStore.isTopicCollected) ?
+                <IconButton
+                  color="inherit"
+                  aria-label="button"
+                  onClick={() => this.collect(true)}
+                >
+                  <Star />
+                </IconButton>
+                :
+                null
+            }
+
+            {
+              (pathname.indexOf('detail') >= 0 && !this.props.topicStore.isTopicCollected) ?
+                <IconButton
+                  color="inherit"
+                  aria-label="button"
+                  onClick={() => this.collect(false)}
+                >
+                  <StartBorder />
+                </IconButton>
+               :
+                null
             }
 
           </Toolbar>
@@ -204,10 +242,9 @@ class DrawerBar extends React.Component {
 DrawerBar.wrappedComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   appState: PropTypes.object.isRequired,
+  topicStore: PropTypes.object.isRequired,
 }
 DrawerBar.propTypes = {
-  // currentPath: PropTypes.object.isRequired,
-  // history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
 }
 

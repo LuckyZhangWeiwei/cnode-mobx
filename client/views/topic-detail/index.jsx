@@ -45,7 +45,7 @@ class TopicDetail extends React.Component {
   componentDidMount() {
     const id = this.getTopicId()
 
-    this.props.topicStore.getTopicDetail(id)
+    this.props.topicStore.getTopicDetail(id, this.props.appState.user.isLogin)
 
     window.addEventListener('scroll', this.onScroll, false)
   }

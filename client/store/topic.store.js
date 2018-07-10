@@ -50,6 +50,7 @@ class TopicStore {
   @observable syncing = false
   @observable createTopics = []
   @observable tab
+  @observable isTopicCollected = false
 
   constructor({
     syncing = false, topics = [], tab = null, details = [],
@@ -101,17 +102,22 @@ class TopicStore {
     })
   }
 
-  @action getTopicDetail(id) {
+  @action getTopicDetail(id, isLogin = false) {
     return new Promise((resolve, reject) => {
+      const url = isLogin ?
+        `/topic/${id}/?needAccessToken=true`
+        :
+        `/topic/${id}/`
       if (this.detailMap[id]) {
         resolve(this.detailMap[id])
       } else {
-        get(`/topic/${id}`, {
+        get(url, {
           mdrender: false,
         }).then((resp) => {
           if (resp.success) {
             const topic = new Topic(createTopic(resp.data))
             this.details.push(topic)
+            this.isTopicCollected = topic.is_collect
             resolve(topic)
           } else {
             reject()
@@ -135,6 +141,26 @@ class TopicStore {
             create_at: Date.now(),
           }
           this.createTopics.push(new Topic(createTopic(topic)))
+          resolve()
+        } else {
+          reject()
+        }
+      }).catch(reject)
+    })
+  }
+
+  @action handleTopicCollection(operType, topicId) {
+    const url = operType ? '/topic_collect/de_collect/?needAccessToken=true' : '/topic_collect/collect/?needAccessToken=true'
+    return new Promise((resolve, reject) => {
+      post(url, {
+        topic_id: topicId,
+      }).then((resp) => {
+        if (resp.success) {
+          if (operType) {
+            this.isTopicCollected = false
+          } else {
+            this.isTopicCollected = true
+          }
           resolve()
         } else {
           reject()
