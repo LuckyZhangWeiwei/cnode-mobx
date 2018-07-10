@@ -79,14 +79,15 @@ class TopicDetail extends React.Component {
   }
 
   goToLogin() {
-    this.props.history.push('/user/login')
-    this.props.appState.setCurrentPath('/user/login')
+    this.props.history.push(`/user/login?from=${this.props.location.pathname}`)
+    this.props.appState.setCurrentPath(`/user/login?from=${this.props.location.pathname}`)
   }
 
   doReply() {
     const id = this.getTopicId()
     const topic = this.props.topicStore.detailMap[id]
-    topic.doReply(this.state.newReply)
+    const replyContent = this.state.newReply
+    topic.doReply(replyContent)
       .then(() => {
         const createdReply = topic.createdReplies[topic.createdReplies.length - 1]
         const newReply = Object.assign({}, createdReply, {
@@ -226,6 +227,7 @@ TopicDetail.propTypes = {
   match: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 }
 
 export default withStyles(topicDetailStyle)(TopicDetail)

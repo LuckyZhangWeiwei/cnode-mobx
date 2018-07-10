@@ -129,7 +129,7 @@ export const replyStyle = {
     fontSize: '.9rem',
   },
   coloranimate: {
-    animation: 'updatedcolor 1s',
+    animation: 'updatedcolor 2s',
   },
   '@keyframes updatedcolor': {
     '0%': {
