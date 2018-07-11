@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
-import { Redirect } from 'react-router-dom'
 import queryString from 'query-string'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -53,6 +52,10 @@ class UserLogin extends React.Component {
         this.setState({
           helpText: '',
           error: false,
+        }, () => {
+          const from = this.getFrom()
+          this.props.history.push(from)
+          this.props.appState.setCurrentPath(from)
         })
         return true
       })
@@ -72,17 +75,8 @@ class UserLogin extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { isLogin } = this.props.user
-    const from = this.getFrom()
-    if (isLogin) {
-      this.props.appState.setCurrentPath(from)
-      return (
-        <Redirect to={from} />
-      )
-    }
-
     return (
-      <UserWrapper location={this.props.currentPath}>
+      <UserWrapper>
         <div className={classes.root}>
           <TextField
             label="请输入Cnode AccessToken"
@@ -115,8 +109,8 @@ UserLogin.propTypes = {
 
 UserLogin.wrappedComponent.propTypes = {
   appState: PropTypes.object.isRequired,
-  currentPath: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 export default withStyles(loginStyles)(UserLogin)

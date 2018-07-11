@@ -126,7 +126,7 @@ class TopicCreate extends React.Component {
               options={{
                 // toolbar: false,
                 // autoFocus: false,
-                // spellChecker: false,
+                spellChecker: false,
                 placeholder: '发表你的精彩意见',
               }}
             />

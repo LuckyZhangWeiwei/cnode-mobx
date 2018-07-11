@@ -162,6 +162,7 @@ class TopicDetail extends React.Component {
                   onChange={this.handleNewReplyChange}
                   value={this.state.newReply}
                   options={{
+                    spellChecker: false,
                     placeholder: '添加回复',
                   }}
                 />
