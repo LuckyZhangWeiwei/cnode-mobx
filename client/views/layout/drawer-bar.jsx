@@ -139,6 +139,7 @@ class DrawerBar extends React.Component {
     if (!this.props.appState.user.isLogin) {
       this.context.router.history.push(`/user/login?from=${this.props.location.pathname}`)
       this.props.appState.setCurrentPath(`/user/login?from=${this.props.location.pathname}`)
+      return
     }
     const topicId = this.getTopicId()
     this.props.topicStore.handleTopicCollection(operType, topicId)
