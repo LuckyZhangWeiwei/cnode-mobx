@@ -174,10 +174,12 @@ class TopicDetail extends React.Component {
             null
           }
           {
-            !user.isLogin &&
-            <section className={classes.notLoginButtonSection}>
-              <Button variant="raised" color="secondary" className={classes.LoginBtn} onClick={this.goToLogin}>登录后回复</Button>
-            </section>
+            !user.isLogin ?
+              <section className={classes.notLoginButtonSection}>
+                <Button variant="raised" color="secondary" className={classes.LoginBtn} onClick={this.goToLogin}>登录后回复</Button>
+              </section>
+              :
+              null
           }
         </Container>
         {
