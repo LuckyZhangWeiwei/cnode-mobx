@@ -54,11 +54,12 @@ class TopicStore {
 
   constructor({
     syncing = false, topics = [], tab = null, details = [],
-  } = {}) {
+  } = {}, appState = {}) {
     this.syncing = syncing
     this.topics = topics.map(topic => (new Topic(createTopic(topic))))
     this.details = details.map(detail => new Topic(createTopic(detail)))
     this.tab = tab
+    this.appState = appState
   }
 
   addTopic(topic) {
@@ -150,6 +151,7 @@ class TopicStore {
   }
 
   @action handleTopicCollection(operType, topicId) {
+    console.log('this.appState:', this.appState.user.isLogin)
     const url = operType ? '/topic_collect/de_collect/?needAccessToken=true' : '/topic_collect/collect/?needAccessToken=true'
     return new Promise((resolve, reject) => {
       post(url, {

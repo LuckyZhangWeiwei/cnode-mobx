@@ -40,7 +40,7 @@ if (initialState.appState) {
   appState.init(initialState.appState)
 }
 
-const topicStore = new TopicStore(initialState.topicStore)
+const topicStore = new TopicStore(initialState.topicStore, appState)
 
 const root = document.getElementById('root')
 

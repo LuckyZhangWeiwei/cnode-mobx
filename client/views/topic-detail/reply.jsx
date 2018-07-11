@@ -17,7 +17,7 @@ const Reply = ({ reply, classes, onSecondClick }) => {
     <div className={classNames}>
       <div className={classes.left}>
         <ListItemSecondaryAction onClick={onSecondClick} style={{ position: 'static', transform: 'translateY(50%)' }}>
-          <Avatar src={reply.author.avatar_url} />
+          <Avatar src={reply.author.avatar_url || reply.author.avatarUrl} />
         </ListItemSecondaryAction>
       </div>
 
