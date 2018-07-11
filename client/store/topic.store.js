@@ -90,11 +90,11 @@ class TopicStore {
             resp.data.forEach((topic) => {
               this.topics.push(new Topic(createTopic(topic)))
             })
+            this.syncing = false
             resolve()
           } else {
             reject()
           }
-          this.syncing = false
         }).catch((err) => {
           reject(err)
           this.syncing = false
@@ -152,7 +152,10 @@ class TopicStore {
 
   @action handleTopicCollection(operType, topicId) {
     // console.log('this.appState:', this.appState.user.isLogin)
-    const url = operType ? '/topic_collect/de_collect/?needAccessToken=true' : '/topic_collect/collect/?needAccessToken=true'
+    const url = operType ?
+      '/topic_collect/de_collect/?needAccessToken=true'
+      :
+      '/topic_collect/collect/?needAccessToken=true'
     return new Promise((resolve, reject) => {
       post(url, {
         topic_id: topicId,

@@ -148,10 +148,10 @@ export default class TopicList extends React.Component {
         {
           syncingTopics ? (
             <div style={{
-              display: 'flex', justifyContent: 'space-around', padding: '20px 0', background: '#ccc',
+              display: 'flex', justifyContent: 'space-around', padding: '20px 0',
             }}
             >
-              <CircularProgress size={60} />
+              <CircularProgress size={40} />
             </div>) : null
         }
       </Container>
