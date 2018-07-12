@@ -53,7 +53,13 @@ const styles = theme => ({
     marginRight: 20,
   },
   AddButton: {
-    marginLeft: '45%',
+    // marginLeft: '45%',
+    left: '70%',
+    position: 'absolute',
+  },
+  collectionButton: {
+    left: '80%',
+    position: 'absolute',
   },
   hide: {
     display: 'none',
@@ -215,6 +221,7 @@ class DrawerBar extends React.Component {
                 <IconButton
                   color="inherit"
                   aria-label="button"
+                  className={classes.collectionButton}
                   onClick={() => this.collect(true)}
                 >
                   <Star />
@@ -228,6 +235,7 @@ class DrawerBar extends React.Component {
                 <IconButton
                   color="inherit"
                   aria-label="button"
+                  className={classes.collectionButton}
                   onClick={() => this.collect(false)}
                 >
                   <StartBorder />
