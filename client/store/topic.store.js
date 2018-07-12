@@ -24,15 +24,17 @@ class Topic {
   @observable syncing=false
   @observable createdReplies = []
 
-  @action doReply(content) {
+  @action doReply(content, reply_id = null) {
     return new Promise((resolve, reject) => {
       post(`/topic/${this.id}/replies?needAccessToken=true`, {
         content,
+        reply_id,
       }).then((resp) => {
         if (resp.success) {
           this.createdReplies.push(createReply({
             id: resp.reply_id,
             content,
+            reply_id,
             create_at: Date.now(),
           }))
           resolve()
@@ -171,6 +173,19 @@ class TopicStore {
           reject()
         }
       }).catch(reject)
+    })
+  }
+
+  @action handleUp(replyId) {
+    return new Promise((resolve, reject) => {
+      post(`/reply/${replyId}/ups?needAccessToken=true`)
+        .then((resp) => {
+          if (resp.success) {
+            resolve(resp.action)
+          } else {
+            reject()
+          }
+        }).catch(reject)
     })
   }
 

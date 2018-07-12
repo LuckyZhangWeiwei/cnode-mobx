@@ -122,11 +122,47 @@ export const replyStyle = {
       marginRight: 40,
     },
   },
+  buttons: {
+    position: 'absolute',
+    right: 10,
+    top: 20,
+    width: '15%',
+  },
+  icon: {
+    fontSize: 18,
+    marginRight: 10,
+  },
   replyContent: {
     wordBreak: 'break-all',
     // wordWrap: 'break-word',
     // whiteSpace: 'pre-wrap',
     fontSize: '.9rem',
+  },
+  replyEditor: {
+    position: 'relative',
+    padding: 24,
+    // borderBottom: '1px solid #dfdfdf',
+    '& .CodeMirror': {
+      height: 150,
+      width: 290,
+      minHeight: 'auto',
+      '& .CodeMirror-scroll': {
+        minHeight: 'auto',
+      },
+    },
+    marginLeft: -80,
+    marginTop: -20,
+  },
+  replyButton: {
+    position: 'absolute',
+    right: 40,
+    bottom: 400,
+    zIndex: 1000,
+    opacity: 0.1,
+    transition: 'opacity .3s',
+    '&:hover': {
+      opacity: 1,
+    },
   },
   coloranimate: {
     animation: 'updatedcolor 2s',
