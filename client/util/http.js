@@ -1,15 +1,15 @@
 import axios from 'axios'
 
 const baseUrl = process.env.API_BASE || ''
-/* eslint-disable */
+
 const parseUrl = (url, params = {}) => {
   const str = Object.keys(params).reduce((result, key) => {
     const r = `${result}${key}=${params[key]}&`
     return r
   }, '')
-   return `${url}?${str.substr(0, str.length - 1)}`
+  return `${url}?${str.substr(0, str.length - 1)}`
 }
-/* eslint-enable */
+
 export const get = (url, params = {}) => (
   new Promise((resolve, reject) => {
     axios.get(parseUrl(`${baseUrl}/api${url}`, params))
