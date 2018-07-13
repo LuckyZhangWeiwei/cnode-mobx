@@ -46,6 +46,12 @@ class Reply extends React.Component {
   }
 
   personalReply() {
+    const { isLogin } = this.props.appState.user
+    if (!isLogin) {
+      this.context.router.history.push(`/user/login?from=${this.context.router.route.location.pathname}`)
+      this.props.appState.setCurrentPath(`/user/login?from=${this.context.router.route.location.pathname}`)
+      return
+    }
     this.setState({
       showReplyWindow: !this.state.showReplyWindow,
     })
