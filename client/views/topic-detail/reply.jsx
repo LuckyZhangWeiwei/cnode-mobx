@@ -152,7 +152,7 @@ class Reply extends React.Component {
           }
         </div>
         <div className={classes.buttons}>
-          <ListItemSecondaryAction style={{ paddingRight: 35 }} onClick={this.personalReply} >
+          <ListItemSecondaryAction style={this.state.showReplyWindow ? { color: '#f50057', paddingRight: 35 } : { paddingRight: 35 }} onClick={this.personalReply} >
             <Create className={classes.icon} />
           </ListItemSecondaryAction>
           <ListItemSecondaryAction onClick={this.up}>
