@@ -12,7 +12,7 @@ export default (stores, routerContext, sheetRegistry, generateClassName, theme, 
   <Provider {...stores}>
     <StaticRouter context={routerContext} location={url}>
       <JssProvider registry={sheetRegistry} generateClassName={generateClassName}>
-        <MuiThemeProvider theme={theme}>
+        <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
           <App />
         </MuiThemeProvider>
       </JssProvider>

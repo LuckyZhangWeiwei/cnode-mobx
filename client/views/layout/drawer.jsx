@@ -50,7 +50,7 @@ class DrawerMenu extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
 
     const sideList = (
       <div className={classes.list}>

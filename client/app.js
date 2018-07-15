@@ -45,7 +45,7 @@ const topicStore = new TopicStore(initialState.topicStore, appState)
 const root = document.getElementById('root')
 
 const render = (Component) => {
-  const renderMethod = module.hot ? ReactDom.render : ReactDom.hydrate
+  const renderMethod = ReactDom.render // module.hot ? ReactDom.render : ReactDom.render
   renderMethod(
     <AppContainer>
       <Provider appState={appState} topicStore={topicStore}>

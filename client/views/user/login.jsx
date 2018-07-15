@@ -21,8 +21,8 @@ class UserLogin extends React.Component {
     router: PropTypes.object,
   }
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       accesstoken: '',
       helpText: '',

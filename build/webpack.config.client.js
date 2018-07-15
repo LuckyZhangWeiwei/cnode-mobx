@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const HTMLPlugin = require('html-webpack-plugin')
 const webpackMerge = require('webpack-merge')
 const baseConfig = require('./webpack.base')
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const isDev = process.env.NODE_ENV==='development'
 
@@ -51,6 +52,33 @@ if(isDev) {
     config.plugins.push(
         new webpack.HotModuleReplacementPlugin()
     )
+}
+else {
+  config.entry = {
+    app: path.join(__dirname,'../client/app.js'),
+    vendor:[
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'mobx',
+      'mobx-react',
+      'axios',
+      'query-string',
+      'dateformat',
+      'marked'
+    ]
+  }
+  config.output.filename = '[name].[chunkhash].js'
+  config.plugins.push(
+    new UglifyJsPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      minChunks: Infinity
+    }),
+  )
 }
 
 module.exports = config
