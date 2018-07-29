@@ -37,6 +37,7 @@ class DrawerMenu extends React.Component {
   }
   changeTab(value) {
     this.context.router.history.push(`/index/${value}`)
+    this.props.appState.setCurrentPath(`/index/${value}`)
   }
 
   goTo() {
