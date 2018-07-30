@@ -79,7 +79,6 @@ class Reply extends React.Component {
       newReply: value,
     })
   }
-
   doReply() {
     const { isLogin } = this.props.appState.user
     if (!isLogin) {
@@ -91,6 +90,7 @@ class Reply extends React.Component {
     const id = this.getTopicId()
     const topic = this.props.topicStore.detailMap[id]
     const replyContent = this.state.newReply
+
     topic.doReply(replyContent, replyId)
       .then(() => {
         const createdReply = topic.createdReplies[topic.createdReplies.length - 1]
