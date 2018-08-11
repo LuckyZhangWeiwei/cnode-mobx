@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <%- meta %>
+
+  <%- title %>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css">
+
+  <%- link %>
+
+  <%- style %>
+
+  <style id="jss-server-side">
+  <%- materialUICss %>
+  </style>
+
+</head>
+<body>
+  <div id="root"><%- appString %></div>
+  <script>
+    window.__INIT_STATE__ = <%- initialState %>
+  </script>
+<script type="text/javascript" src="/public/manifest.3edf89800bfffa516fcc.js"></script><script type="text/javascript" src="/public/vendor.2cb201877ac21e3f1e6c.js"></script><script type="text/javascript" src="/public/app.90e3a994321c4ea5a624.js"></script></body>
+</html>
